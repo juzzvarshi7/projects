@@ -1,0 +1,146 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #E0FFFF; /* Light celeste color */
+    color: #333;
+}
+
+header {
+    background-color: #20B2AA; /* Light Sea Green */
+    color: #fff;
+    padding: 10px 0; /* Increased padding for better spacing */
+    text-align: center;
+}
+
+header img {
+    border-radius: 50%;
+    width: 100px; /* Increased size */
+    height: 100px; /* Increased size */
+}
+
+header h1 {
+    margin: 5px 0; /* Reduced margin */
+    font-size: 1.8em; /* Increased size */
+}
+
+header p {
+    font-size: 1em; /* Reduced size */
+    margin: 5px 0; /* Optional: adjust the margin if needed */
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    background-color: #66CDAA; /* Medium Aquamarine */
+}
+
+nav ul li {
+    margin: 0 10px; /* Original margin */
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1em; /* Original size */
+    padding: 10px 15px; /* Padding for clickable area */
+    display: block; /* Ensures padding is clickable */
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+.container {
+    width: 80%;
+    margin: 20px auto;
+}
+
+section {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #20B2AA; /* Light Sea Green */
+    margin-bottom: 10px;
+}
+
+h3 {
+    color: #333;
+}
+
+ul {
+    list-style: disc;
+    padding-left: 20px;
+}
+
+footer {
+    background-color: #008080; /* Teal color */
+    color: #fff;
+    text-align: center;
+    padding: 0.1px 5; /* Reduced padding for a smaller footer */
+    position: fixed;
+    vertical-align: top;
+    width: 100%;
+    height: 30px;
+    bottom: 0;
+    line-height: 1.5em; /* Ensure text is legible */
+}
+
+footer p {
+    margin: 0;
+    font-size: em; /* Slightly larger font size for visibility */
+    line-height: 1.2em; /* Ensure text is legible */
+}
+
+.project img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.project {
+    margin-bottom: 20px;
+}
+
+.project a {
+    color: #20B2AA; /* Light Sea Green */
+    text-decoration: none;
+}
+
+.project a:hover {
+    text-decoration: underline;
+}
+
+.project-images {
+    display: flex;
+    flex-wrap: wrap; /* Allow images to wrap */
+    gap: 10px;
+    justify-content: center; /* Center align images horizontally */
+    align-items: flex-start; /* Align images at the top vertically */
+}
+
+/* Adjust individual image styles */
+.project-images img {
+    border-radius: 8px;
+}
+
+/* Adjust dimensions for project42.png */
+.project-images img:nth-child(2) {
+    max-width: 200px; /* Set a specific width */
+    max-height: 400px; /* Set a specific height */
+}
+
+/* Adjust dimensions for project43.png, project44.png, and project45.png */
+.project-images img:nth-child(n + 3) {
+    max-width: 200px; /* Set the same width as project42 */
+    max-height: 400px; /* Set the same height as project42 */
+}

@@ -1,0 +1,58 @@
+/* Basic CSS for your website */
+/* You can further customize this based on your requirements */
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+header {
+    margin-bottom: 20px;
+}
+
+footer {
+    background-color: #f8f9fa;
+    padding: 20px 0;
+}
+
+.navbar-brand img {
+    max-width: 100px;
+    height: auto;
+}
+
+#home {
+    padding: 50px 0;
+}
+
+#news {
+    background-color: #f8f9fa;
+    padding: 50px 0;
+}
+
+.boxes {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.box {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    width: 30%;
+}
+
+.services-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.service {
+    width: 50%;
+    padding: 20px;
+}
+
+.service img {
+    max-width: 100px;
+    height: auto;
+}

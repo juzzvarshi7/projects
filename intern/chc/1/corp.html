@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHC IT Consultancy</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="logo-placeholder.png" alt="CHC IT Consultancy Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about-us">About Us</a></li>
+                <li><a href="#contact-us">Contact Us</a></li>
+            </ul>
+        </nav>
+        <div class="header-right">
+            <input type="text" placeholder="Search...">
+            <a href="https://www.linkedin.com" target="_blank">
+                <img src="linkedin-icon.png" alt="LinkedIn">
+            </a>
+            <button id="menu-btn">☰</button>
+        </div>
+    </header>
+
+    <div id="side-menu" class="side-menu">
+        <div class="side-menu-content">
+            <button id="close-btn">✖</button>
+            <h2>About Us</h2>
+            <p>Our mission is to provide innovative IT solutions with a futuristic outlook. Contact us at:</p>
+            <address>
+                1234 IT Street,<br>
+                Tech City, TC 56789<br>
+                <a href="mailto:info@chcitconsultancy.com">info@chcitconsultancy.com</a>
+            </address>
+        </div>
+    </div>
+
+    <main>
+        <section id="home">
+            <div class="slider">
+                <div class="slide">
+                    <img src="slide1.png" alt="Slide 1">
+                    <div class="slide-content">
+                        <h2>Digitize your Business with MERUKA</h2>
+                        <p>MIERUKA gather and displays business data in interactive and customizable visualizations that enable
+                            users to monitor the health of a business, analyze processes and provide them with actionable insights.
+                            Buckle up; let us be ready for a fun ride.<a href="#">Read more</a></p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="slide2.png" alt="Slide 2">
+                    <div class="slide-content">
+                        <h2>Empowering transparency, fairness, and growth in your organization.</h2>
+                        <p>Unlock your organization's potential with Hyouka — fostering transparency,
+fairness, and growth in performance evaluation.<a href="#">Read more</a></p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="slide3.png" alt="Slide 3">
+                    <div class="slide-content">
+                        <h2>Are you interested to learn Japanese Language</h2>
+                        <p>Welcome to QMALL, an online learning application to learn and practice the Japanese language<a href="#">Read more</a></p>
+                    </div>
+                </div>
+                <button class="prev-btn">&#10094;</button>
+                <button class="next-btn">&#10095;</button>
+            </div>
+
+
+            <div class="recent-progress">
+                <div class="ticker">
+                    <marquee behavior="scroll" direction="left">- We recently completed the 10th batch of the JEC Course at Vivekanandha Arts and Science College for Women, Sankagiri.    - We have successfully completed ISMS & QMS Surveillance Audit for this Financial Year.  - We recently completed the 10th batch of the JEC Course at Vivekanandha Arts and Science College for Women, Sankagiri.
+</marquee>
+                </div>
+                <div class="progress-content">
+                    <div class="progress-item">
+                        <h3>MIERUKA</h3>
+                        <p>MIERUKA is an information management tool that tracks KPIs, metrics, and critical data points relevant to manufacturing. Also, it generates customized reports such as equipment historical data and Annual product Quality reports.<a href="#">Read more</a></p>
+                    </div>
+                    <div class="progress-item">
+                        <h3>Hyouka</h3>
+                        <p>Unlock the power of transparent and efficient performance evaluation with Hyouka. From streamlined goal-setting to automated salary revisions / performance incentives, Hyouka revolutionizes your organization's performance management<a href="#">Read more</a></p>
+                    </div>
+                    <div class="progress-item">
+                        <h3>We are Hiring!</h3>
+                        <p>Are you interested to join our team for some exciting openings?</p><br>
+                        <p>You can apply through our career page. <a href="#">Read more</a></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services">
+            <div class="services-overview">
+                <div class="services-title">
+                    <h2>Services</h2>
+                    <h3>What we offer</h3>
+                    <p>Three-line paragraph about services. <a href="#">Read more</a></p>
+                </div>
+                <div class="services-content">
+                    <button class="prev-btn">◀</button>
+                    <div class="service-box">
+                        <img src="service1.png" alt="Service 1">
+                        <h3>Artificial Intelligence</h3>
+                        <p>The world is now connected, and the data generated is growing...<a href="#">Read more</a></p>
+                    </div>
+                    <div class="service-box">
+                        <img src="service2.png" alt="Service 2">
+                        <h3>RPA</h3>
+                        <p>The solution to boost your operations and productivity...<a href="#">Read more</a></p>
+                    </div>
+                    <div class="service-box">
+                        <img src="service3.png" alt="Service 3">
+                        <h3>ERP Solutions</h3>
+                        <p>Enterprise Resource Planning (ERP) is a software applicationm<a href="#">Read more</a></p>
+                    </div>
+                    <button class="next-btn">▶</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="products">
+            <div class="products-overview">
+                <h2>Products</h2>
+                <p>We provide some exciting products build from scratch by our highly innovative Engineers.</p>
+                <div class="product-boxes">
+                    <div class="product-box">
+                        <img src="product1.png" alt="Product 1">
+                        <h3>MIERUKA</h3>
+                        <p>MEIRUKA offers a visual representation of your crucial business data.</p>
+                <button class="switch-product-btn" data-product="product-details-1">View Details</button>
+                    </div>
+                    <div class="product-box">
+                        <img src="product2.png" alt="Product 2">
+                        <h3>HYOUKA</h3>
+                        <p>HYOUKA is the ultimate performance evaluation solution.</p>
+                <button class="switch-product-btn" data-product="product-details-1">View Details</button>
+                    </div>
+                    <div class="product-box">
+                        <img src="product3.png" alt="Product 3">
+                        <h3>QMALL</h3>
+                        <p>A secured customizable web-based assessment tool for skill evaluation.</p>
+                    </div>
+                <button class="switch-product-btn" data-product="product-details-1">View Details</button>
+                    <div class="product-box">
+                        <img src="product4.png" alt="Product 4">
+                        <h3>Saibo.ai</h3>
+                        <p>A secured web-based Object-Detection and Classification tool.</p>
+                    </div>
+                    <div class="product-box">
+                        <img src="product5.png" alt="Product 4">
+                        <h3>My Mice</h3>
+                        <p>An easy to use mobile app to manage the lifecycle of laboratory mice.</p>
+                    </div>
+                </div>
+                <div class="product-details">
+                    <img src="product-detail1.jpg" alt="Product Detail 1">
+                    <h3>Product Detail Title 1</h3>
+                    <p>Very big paragraph about product detail 1. <a href="#">Read more</a></p>
+                </div>
+                <div class="product-details">
+                    <img src="product-detail1.jpg" alt="Product Detail 1">
+                    <h3>Product Detail Title 1</h3>
+                    <p>Very big paragraph about product detail 1. <a href="#">Read more</a></p>
+                </div>
+                <div class="product-details">
+                    <img src="product-detail1.jpg" alt="Product Detail 1">
+                    <h3>Product Detail Title 1</h3>
+                    <p>Very big paragraph about product detail 1. <a href="#">Read more</a></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="partners">
+            <h2>Our Partners</h2>
+            <p>We are excited to have collaborated with some of the greatest tech companies in the industries. Our partnerships have developed based on mutual trust and Competency. We are happy to join hands with these partners to provide following products and services,
+HITPHAMS, THOMAS Series, OmniDocs, JEC.</p>
+            <div class="partner-logos">
+                <img src="partner1.png" alt="Partner 1">
+                <img src="partner2.png" alt="Partner 2">
+                <img src="partner3.png" alt="Partner 3">
+                <img src="partner4.png" alt="Partner 4">
+            </div>
+        </section>
+
+        <section id="about-us">
+            <div class="about-us-overview">
+                <img src="about-us.png" alt="About Us">
+                <div class="about-us-content">
+                    <h2>About Us</h2>
+                    <p>CIC is a fast-growing innovative I.T. company predominantly servicing Japanese companies with an approach towards high productivity and high quality in the emerging software technologies.</p>
+                    <p>We are a subsidiary of a Japanese Information Technology company offering futuristic services and solutions in various fields of Web Applications, Mobile Apps, Artificial Intelligence, Server database management, Manufacturing Execution System Software Integration, Japanese Endowed Course Training, and Consulting.</p>
+                    <div class="about-buttons">
+                        <button class="about-btn active" data-content="mission">Mission</button>
+                        <button class="about-btn" data-content="vision">Vision</button>
+                    </div>
+                    <div class="about-text">
+                        <p id="mission" class="about-detail">To provide innovative IT related  solutions and services to our  customers with a futuristic outlook.</p>
+                        <p id="vision" class="about-detail">To commit ourselves in pursuit of professional excellence and grow as a leading IT Company.</p>
+                    </div>
+                    <a href="#about-us">Read more</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="team">
+            <h2>Our Team</h2>
+            <div class="team-slider">
+                <button class="prev-btn">◀</button>
+                <div class="team-member">
+                    <img src="team.jpg" alt="Team Member 1">
+                    <h3>Team Member 1</h3>
+                    <p>Title 1</p>
+                </div>
+                <div class="team-member">
+                    <img src="team.jpg" alt="Team Member 2">
+                    <h3>Team Member 2</h3>
+                    <p>Title 2</p>
+                </div>
+                <div class="team-member">
+                    <img src="team.jpg" alt="Team Member 3">
+                    <h3>Team Member 3</h3>
+                    <p>Title 3</p>
+                </div>
+                <button class="next-btn">▶</button>
+            </div>
+            <button class="view-team-btn">View Full Team</button>
+        </section>
+
+        <section id="contact-us">
+            <div class="contact-background">
+                <h2>Our expert team can provide innovative solutions that can help you to stand out in your business.</h2>
+                <p>To know more about our innovative products and solutions please reach out to us</p>
+                <button>Contact Us</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-section">
+            <h3>Services</h3>
+            <ul>
+                <li>Application Development</li>
+                <li>ERP Solutions</li>
+                <li>BPO (ITES)</li>
+                <li>Training</li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Follow Us</h3>
+            <a href="https://www.linkedin.com" target="_blank">
+                <img src="linkedin-icon.png" alt="LinkedIn">
+            </a>
+        </div>
+        <div class="footer-section">
+            <h3>Useful Links</h3>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about-us">About Us</a></li>
+                <li><a href="#contact-us">Contact Us</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Registered Office</h3>
+            <address>
+                1234 IT Street,<br>
+                Tech City, TC 56789<br>
+                <a href="mailto:info@chcitconsultancy.com">info@chcitconsultancy.com</a>
+            </address>
+        </div>
+        <div class="footer-section">
+            <h3>Parent Office</h3>
+            <address>
+                5678 Corporate Blvd,<br>
+                Business Town, BT 12345<br>
+                <a href="tel:+1234567890">+1 234-567-890</a><br>
+                <a href="mailto:contact@chcitconsultancy.com">contact@chcitconsultancy.com</a>
+            </address>
+        </div>
+    </footer>
+</body>
+</html>

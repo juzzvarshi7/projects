@@ -1,0 +1,85 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Users collection
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+      allow read: if request.auth != null && 
+        (resource.data.role == 'principal' || resource.data.role == 'staff');
+    }
+    
+    // Appointments collection
+    match /appointments/{appointmentId} {
+      allow read, write: if request.auth != null && 
+        (request.auth.uid == resource.data.staffId || 
+         request.auth.uid == resource.data.principalId);
+      
+      allow create: if request.auth != null && 
+        request.auth.uid == request.resource.data.staffId &&
+        validateAppointmentData(request.resource.data);
+      
+      allow update: if request.auth != null && 
+        (request.auth.uid == resource.data.staffId || 
+         request.auth.uid == resource.data.principalId) &&
+        validateAppointmentUpdate(request.resource.data, resource.data);
+    }
+    
+    // Audio messages collection
+    match /audio_messages/{messageId} {
+      allow read, write: if request.auth != null && 
+        request.auth.uid == resource.data.senderId;
+      
+      allow read: if request.auth != null && 
+        exists(/databases/$(database)/documents/appointments/$(resource.data.appointmentId)) &&
+        (request.auth.uid == get(/databases/$(database)/documents/appointments/$(resource.data.appointmentId)).data.staffId ||
+         request.auth.uid == get(/databases/$(database)/documents/appointments/$(resource.data.appointmentId)).data.principalId);
+      
+      allow create: if request.auth != null && 
+        request.auth.uid == request.resource.data.senderId &&
+        validateAudioMessageData(request.resource.data);
+    }
+    
+    // Activity logs collection
+    match /activity_logs/{logId} {
+      allow read: if request.auth != null && 
+        request.auth.uid == resource.data.userId;
+      
+      allow create: if request.auth != null && 
+        request.auth.uid == request.resource.data.userId;
+    }
+    
+    // Validation functions
+    function validateAppointmentData(data) {
+      return data.keys().hasAll(['staffId', 'principalId', 'title', 'description', 
+                                'scheduledDateTime', 'status', 'priority', 'createdAt']) &&
+             data.staffId is string && data.staffId.size() > 0 &&
+             data.principalId is string && data.principalId.size() > 0 &&
+             data.title is string && data.title.size() > 0 &&
+             data.description is string &&
+             data.scheduledDateTime is timestamp &&
+             data.status in ['pending', 'accepted', 'rejected', 'cancelled', 'completed'] &&
+             data.priority in ['low', 'medium', 'high', 'urgent'] &&
+             data.createdAt is timestamp &&
+             data.scheduledDateTime > request.time;
+    }
+    
+    function validateAppointmentUpdate(newData, oldData) {
+      return newData.staffId == oldData.staffId &&
+             newData.principalId == oldData.principalId &&
+             newData.createdAt == oldData.createdAt &&
+             newData.updatedAt is timestamp &&
+             newData.updatedAt > oldData.updatedAt;
+    }
+    
+    function validateAudioMessageData(data) {
+      return data.keys().hasAll(['appointmentId', 'senderId', 'audioUrl', 
+                                'durationSeconds', 'fileSizeBytes', 'createdAt']) &&
+             data.appointmentId is string && data.appointmentId.size() > 0 &&
+             data.senderId is string && data.senderId.size() > 0 &&
+             data.audioUrl is string && data.audioUrl.size() > 0 &&
+             data.durationSeconds is int && data.durationSeconds > 0 &&
+             data.fileSizeBytes is int && data.fileSizeBytes > 0 &&
+             data.createdAt is timestamp;
+    }
+  }
+}

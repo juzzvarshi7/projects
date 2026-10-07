@@ -1,0 +1,43 @@
+Sure! I can help you create a study plan to learn Python programming for data science. Here's a 10-week study plan for you:
+
+Week 1:
+- Introduction to Python Basics: Start by getting familiar with the Python syntax, variables, data types, and basic operations.
+  - Resource: [Python Programming Tutorial - Full Course for Beginners](https://www.youtube.com/watch?v=rfscVS0vtbw) by freeCodeCamp.org (Video)
+
+Week 2:
+- Control Flow and Functions: Learn about conditional statements (if, else, elif), loops (for, while), and defining functions.
+  - Resource: [Python Control Flow and Functions](https://www.youtube.com/watch?v=8DvywoWv6fI) by Corey Schafer (Video)
+
+Week 3:
+- Python Lists, Tuples, and Dictionaries: Understand how to work with different data structures in Python.
+  - Resource: [Python Data Structures - Lists, Tuples, and Dictionaries](https://www.youtube.com/watch?v=19EfbO5D_8s) by sentdex (Video)
+
+Week 4:
+- File Handling and Modules: Learn how to read from and write to files, and how to import and use modules in Python.
+  - Resource: [Python File Handling and Modules](https://www.youtube.com/watch?v=Uh2ebFW8OYM) by Corey Schafer (Video)
+
+Week 5:
+- NumPy for Data Science: Explore the NumPy library for numerical computing in Python, essential for data manipulation and analysis.
+  - Resource: [Introduction to NumPy](https://www.youtube.com/watch?v=QUT1VHiLmmI) by DataCamp (Video)
+
+Week 6:
+- Pandas for Data Manipulation: Dive into Pandas, a powerful library for data manipulation and analysis.
+  - Resource: [Pandas Tutorial](https://www.youtube.com/watch?v=ZyhVh-qRZPA) by Corey Schafer (Video)
+
+Week 7:
+- Data Visualization with Matplotlib and Seaborn: Learn how to create visualizations using Matplotlib and Seaborn libraries.
+  - Resource: [Data Visualization with Matplotlib and Seaborn](https://www.youtube.com/watch?v=6guZyVs9CaI) by Corey Schafer (Video)
+
+Week 8:
+- Introduction to Machine Learning: Get an overview of machine learning concepts and algorithms.
+  - Resource: [Machine Learning Course - Full Tutorial for Beginners](https://www.youtube.com/watch?v=GwIo3gDZCVQ) by freeCodeCamp.org (Video)
+
+Week 9:
+- Scikit-Learn for Machine Learning: Explore the Scikit-Learn library for machine learning tasks in Python.
+  - Resource: [Scikit-Learn Tutorial](https://www.youtube.com/watch?v=0Lt9w-BxKFQ) by Corey Schafer (Video)
+
+Week 10:
+- Data Science Projects: Apply your Python and data science knowledge to complete small projects and solidify your understanding.
+  - Resource: [Data Science Project - Analyzing US Economic Data](https://www.youtube.com/watch?v=_Z9TRANg4c0) by Keith Galli (Video)
+
+Remember to practice coding regularly and work on small projects to reinforce your learning. Good luck on your data science journey!

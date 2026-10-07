@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply text-gray-900 bg-gray-50;
+  }
+}
+
+@layer components {
+  .input-range {
+    @apply w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer;
+  }
+  
+  .input-range::-webkit-slider-thumb {
+    @apply appearance-none w-4 h-4 bg-indigo-600 rounded-full cursor-pointer;
+  }
+}

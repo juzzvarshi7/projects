@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BM Multi Speciality Hospital</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+/* ═══════════════════════════════════════════
+   LIGHT THEME — Warm Ivory + Deep Teal + Gold
+   Clean, airy, editorial medical luxury feel
+═══════════════════════════════════════════ */
+:root {
+  --bg: #faf8f5;
+  --surface: #ffffff;
+  --surface2: #f0ede8;
+  --card: #ffffff;
+  --primary: #0b7b6b;
+  --primary-dark: #085c50;
+  --accent: #c9984a;
+  --accent2: #e05757;
+  --text: #1c1c1e;
+  --text2: #4a4a52;
+  --text3: #9a9aa8;
+  --border: #e5e1d8;
+  --shadow: 0 8px 32px rgba(11,123,107,0.12);
+  --shadow2: 0 2px 12px rgba(11,123,107,0.06);
+  --gradient: linear-gradient(135deg, #0b7b6b 0%, #14a68f 60%, #0b7b6b 100%);
+  --gradient-gold: linear-gradient(135deg, #c9984a 0%, #e8c06e 100%);
+  --nav-bg: rgba(250,248,245,0.96);
+  --modal-bg: rgba(28,28,30,0.5);
+  --chat-bg: #faf8f5;
+  --chat-user: #0b7b6b;
+  --chat-bot: #f0ede8;
+  --input-bg: #f7f5f0;
+  --input-border: #d8d3c8;
+  --star: #c9984a;
+  --success: #0b7b6b;
+  --danger: #e05757;
+  --warning: #c9984a;
+  --badge-avail: #e6f4f1;
+  --badge-avail-text: #0b7b6b;
+  --badge-busy: #fdeaea;
+  --badge-busy-text: #c0392b;
+  --footer-bg: #111210;
+  --footer-text: #7a7a6e;
+  --section-alt: #f4f1ec;
+  --card-hover-border: #0b7b6b;
+  --tag-bg: #e6f4f1;
+  --tag-text: #0b7b6b;
+  --logo-text-color: #0b7b6b;
+  --nav-link-hover-bg: #e6f4f1;
+  --input-focus-shadow: rgba(11,123,107,0.12);
+  --btn-submit-shadow: rgba(11,123,107,0.28);
+  --hero-text-accent: #7ee8d8;
+}
+
+/* ═══════════════════════════════════════════
+   DARK THEME — Deep Space Navy + Electric Violet + Neon Cyan
+   Totally different: dramatic, glowy, futuristic
+═══════════════════════════════════════════ */
+[data-theme="dark"] {
+  --bg: #0a0a14;
+  --surface: #10101e;
+  --surface2: #161628;
+  --card: #14142a;
+  --primary: #7c5cfc;
+  --primary-dark: #5a3de0;
+  --accent: #00f0d4;
+  --accent2: #ff5f85;
+  --text: #f0eeff;
+  --text2: #a89fd4;
+  --text3: #5a537a;
+  --border: #252040;
+  --shadow: 0 8px 40px rgba(124,92,252,0.18);
+  --shadow2: 0 2px 16px rgba(124,92,252,0.10);
+  --gradient: linear-gradient(135deg, #7c5cfc 0%, #b45cfc 50%, #5ca8fc 100%);
+  --gradient-gold: linear-gradient(135deg, #00f0d4 0%, #7c5cfc 100%);
+  --nav-bg: rgba(10,10,20,0.96);
+  --modal-bg: rgba(0,0,0,0.75);
+  --chat-bg: #10101e;
+  --chat-user: #7c5cfc;
+  --chat-bot: #161628;
+  --input-bg: #0e0e20;
+  --input-border: #2a2448;
+  --star: #00f0d4;
+  --success: #00f0d4;
+  --danger: #ff5f85;
+  --warning: #ffb347;
+  --badge-avail: #0d2028;
+  --badge-avail-text: #00f0d4;
+  --badge-busy: #200d1a;
+  --badge-busy-text: #ff5f85;
+  --footer-bg: #060610;
+  --footer-text: #3e3860;
+  --section-alt: #0c0c1a;
+  --card-hover-border: #7c5cfc;
+  --tag-bg: #1e1840;
+  --tag-text: #a08cff;
+  --logo-text-color: #a08cff;
+  --nav-link-hover-bg: #1e1840;
+  --input-focus-shadow: rgba(124,92,252,0.18);
+  --btn-submit-shadow: rgba(124,92,252,0.35);
+  --hero-text-accent: #00f0d4;
+}
+
+/* ═══ BASE ═══ */
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);transition:background 0.4s ease,color 0.4s ease;scroll-behavior:smooth;}
+a{text-decoration:none;color:inherit;}
+img{max-width:100%;}
+
+/* ═══ SCROLLBAR ═══ */
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--primary);border-radius:10px;}
+
+/* ═══ DARK MODE — Global Glow & Noise Texture ═══ */
+[data-theme="dark"] body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 0%, rgba(124,92,252,0.07) 0%, transparent 70%),
+             radial-gradient(ellipse 50% 40% at 90% 100%, rgba(0,240,212,0.05) 0%, transparent 60%);
+}
+[data-theme="dark"] *{position:relative;}
+[data-theme="dark"] nav,
+[data-theme="dark"] .chatbot-fab,
+[data-theme="dark"] .chatbot-window,
+[data-theme="dark"] .modal-overlay,
+[data-theme="dark"] .popup-overlay,
+[data-theme="dark"] .toast-container{position:fixed;}
+
+/* ═══ NAV ═══ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  background:var(--nav-bg);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  transition:background 0.4s,border-color 0.4s;
+}
+[data-theme="dark"] nav{
+  box-shadow:0 1px 0 rgba(124,92,252,0.15), 0 4px 24px rgba(0,0,0,0.5);
+}
+[data-theme="light"] nav{
+  box-shadow:0 1px 0 rgba(11,123,107,0.08), 0 4px 20px rgba(11,123,107,0.06);
+}
+.nav-inner{max-width:1340px;margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:68px;}
+.logo{display:flex;align-items:center;gap:13px;}
+.logo-icon{
+  width:42px;height:42px;border-radius:11px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:17px;font-weight:700;color:#fff;
+  font-family:'Cormorant Garamond',serif;letter-spacing:-0.5px;
+  background:var(--gradient);
+  box-shadow:var(--shadow2);
+  flex-shrink:0;
+}
+[data-theme="dark"] .logo-icon{
+  box-shadow:0 0 20px rgba(124,92,252,0.5), 0 4px 12px rgba(0,0,0,0.4);
+}
+.logo-text{font-family:'Cormorant Garamond',serif;}
+.logo-text h1{font-size:17px;font-weight:700;color:var(--logo-text-color);line-height:1.1;letter-spacing:-0.2px;}
+.logo-text span{font-size:10px;color:var(--text3);letter-spacing:1.8px;text-transform:uppercase;font-family:'Outfit',sans-serif;}
+.nav-links{display:flex;align-items:center;gap:2px;}
+.nav-links a{
+  padding:7px 13px;border-radius:8px;font-size:13.5px;font-weight:500;
+  color:var(--text2);transition:all .2s;letter-spacing:0.1px;
+}
+.nav-links a:hover{background:var(--nav-link-hover-bg);color:var(--primary);}
+[data-theme="dark"] .nav-links a:hover{color:var(--accent);}
+.nav-right{display:flex;align-items:center;gap:10px;}
+.btn-theme{
+  background:var(--surface2);border:1.5px solid var(--border);
+  border-radius:10px;padding:7px 12px;cursor:pointer;
+  font-size:16px;color:var(--text2);transition:all .2s;
+  font-family:'Outfit',sans-serif;
+}
+.btn-theme:hover{border-color:var(--primary);transform:rotate(15deg);}
+.btn-primary{
+  background:var(--gradient);color:#fff;border:none;
+  border-radius:10px;padding:9px 20px;font-size:13.5px;font-weight:600;
+  cursor:pointer;transition:all .25s;letter-spacing:0.2px;
+  font-family:'Outfit',sans-serif;
+  box-shadow:var(--shadow2);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:var(--shadow);}
+[data-theme="dark"] .btn-primary{box-shadow:0 0 20px rgba(124,92,252,0.4);}
+
+/* ═══ HERO — LIGHT: warm ivory gradient, DARK: deep space + glow orbs ═══ */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;padding-top:68px;}
+.hero-bg{position:absolute;inset:0;z-index:0;}
+[data-theme="light"] .hero-bg{
+  background:linear-gradient(135deg, #0b7b6b 0%, #0e9e89 40%, #14c4a8 70%, #0b7b6b 100%);
+}
+[data-theme="dark"] .hero-bg{
+  background:linear-gradient(145deg,#0a0a1e 0%,#130d2e 40%,#0c1a2e 70%,#0a0a14 100%);
+}
+.hero-pattern{position:absolute;inset:0;z-index:1;}
+[data-theme="light"] .hero-pattern{
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(255,255,255,0.10) 0%, transparent 45%),
+    radial-gradient(circle at 85% 80%, rgba(201,152,74,0.12) 0%, transparent 45%),
+    repeating-linear-gradient(45deg, transparent, transparent 80px, rgba(255,255,255,0.02) 80px, rgba(255,255,255,0.02) 81px);
+}
+[data-theme="dark"] .hero-pattern{
+  background-image:
+    radial-gradient(ellipse 60% 50% at 20% 30%, rgba(124,92,252,0.22) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 80% 70%, rgba(0,240,212,0.15) 0%, transparent 55%),
+    radial-gradient(ellipse 30% 30% at 60% 20%, rgba(180,92,252,0.12) 0%, transparent 50%);
+}
+.hero-content{position:relative;z-index:2;max-width:1340px;margin:0 auto;padding:60px 28px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+.hero-text h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(36px,5.2vw,62px);color:#fff;line-height:1.12;margin-bottom:20px;font-weight:700;
+}
+.hero-text h2 span{color:var(--hero-text-accent);}
+[data-theme="dark"] .hero-text h2 span{
+  background:linear-gradient(90deg,#00f0d4,#a08cff);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-text p{
+  font-size:16.5px;line-height:1.75;margin-bottom:32px;max-width:490px;
+  color:rgba(255,255,255,0.82);font-weight:300;
+}
+[data-theme="dark"] .hero-text p{color:rgba(200,190,255,0.75);}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;}
+.btn-hero-primary{
+  background:#fff;color:var(--primary);border:none;border-radius:12px;
+  padding:14px 30px;font-size:15px;font-weight:700;cursor:pointer;
+  transition:all .25s;font-family:'Outfit',sans-serif;
+  box-shadow:0 6px 24px rgba(0,0,0,0.18);
+}
+.btn-hero-primary:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,0.22);}
+[data-theme="dark"] .btn-hero-primary{
+  background:linear-gradient(135deg,#7c5cfc,#00f0d4);color:#fff;
+  box-shadow:0 6px 30px rgba(124,92,252,0.5);
+}
+[data-theme="dark"] .btn-hero-primary:hover{box-shadow:0 12px 40px rgba(124,92,252,0.65);}
+.btn-hero-secondary{
+  background:rgba(255,255,255,0.12);color:#fff;
+  border:1.5px solid rgba(255,255,255,0.35);border-radius:12px;
+  padding:13px 28px;font-size:15px;font-weight:500;cursor:pointer;
+  transition:all .25s;backdrop-filter:blur(10px);font-family:'Outfit',sans-serif;
+}
+.btn-hero-secondary:hover{background:rgba(255,255,255,0.22);border-color:rgba(255,255,255,0.6);}
+[data-theme="dark"] .btn-hero-secondary{
+  border-color:rgba(124,92,252,0.5);background:rgba(124,92,252,0.12);
+}
+[data-theme="dark"] .btn-hero-secondary:hover{background:rgba(124,92,252,0.25);border-color:#7c5cfc;}
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:42px;}
+.hero-stat{
+  backdrop-filter:blur(12px);border-radius:14px;padding:18px 14px;text-align:center;
+  transition:transform .2s;
+}
+.hero-stat:hover{transform:translateY(-3px);}
+[data-theme="light"] .hero-stat{
+  background:rgba(255,255,255,0.14);border:1px solid rgba(255,255,255,0.2);
+}
+[data-theme="dark"] .hero-stat{
+  background:rgba(124,92,252,0.1);border:1px solid rgba(124,92,252,0.25);
+  box-shadow:0 0 20px rgba(124,92,252,0.08) inset;
+}
+.hero-stat h3{font-size:26px;font-weight:700;color:#fff;font-family:'Cormorant Garamond',serif;}
+[data-theme="dark"] .hero-stat h3{color:#a08cff;}
+.hero-stat p{font-size:11.5px;margin-top:5px;letter-spacing:0.8px;text-transform:uppercase;}
+[data-theme="light"] .hero-stat p{color:rgba(255,255,255,0.72);}
+[data-theme="dark"] .hero-stat p{color:rgba(160,140,255,0.65);}
+.hero-card{
+  backdrop-filter:blur(20px);border-radius:24px;padding:30px;
+}
+[data-theme="light"] .hero-card{
+  background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);
+  box-shadow:0 12px 40px rgba(0,0,0,0.12);
+}
+[data-theme="dark"] .hero-card{
+  background:rgba(14,14,30,0.7);border:1px solid rgba(124,92,252,0.3);
+  box-shadow:0 0 60px rgba(124,92,252,0.12), 0 12px 40px rgba(0,0,0,0.4);
+}
+.hero-card h3{font-family:'Cormorant Garamond',serif;font-size:20px;color:#fff;margin-bottom:18px;font-weight:600;}
+[data-theme="dark"] .hero-card h3{color:#c8b8ff;}
+.quick-contact{display:flex;flex-direction:column;gap:12px;}
+.contact-item{
+  display:flex;align-items:center;gap:13px;border-radius:12px;padding:13px 15px;
+  transition:all .2s;
+}
+[data-theme="light"] .contact-item{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.15);}
+[data-theme="dark"] .contact-item{background:rgba(124,92,252,0.08);border:1px solid rgba(124,92,252,0.18);}
+.contact-item:hover{transform:translateX(4px);}
+[data-theme="dark"] .contact-item:hover{border-color:rgba(124,92,252,0.4);background:rgba(124,92,252,0.14);}
+.contact-icon{
+  width:36px;height:36px;border-radius:9px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:17px;
+}
+[data-theme="light"] .contact-icon{background:rgba(255,255,255,0.2);}
+[data-theme="dark"] .contact-icon{background:rgba(124,92,252,0.25);box-shadow:0 0 12px rgba(124,92,252,0.2);}
+.contact-info label{font-size:10.5px;letter-spacing:0.8px;text-transform:uppercase;}
+[data-theme="light"] .contact-info label{color:rgba(255,255,255,0.6);}
+[data-theme="dark"] .contact-info label{color:rgba(160,140,255,0.6);}
+.contact-info p{font-size:14.5px;font-weight:600;color:#fff;margin-top:2px;}
+[data-theme="dark"] .contact-info p{color:#e0d8ff;}
+
+/* ═══ SECTIONS ═══ */
+section{padding:84px 28px;}
+.section-inner{max-width:1340px;margin:0 auto;}
+.section-header{text-align:center;margin-bottom:54px;}
+.section-header h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(28px,4vw,44px);color:var(--text);margin-bottom:14px;font-weight:700;
+}
+[data-theme="dark"] .section-header h2{color:#e0d8ff;}
+.section-header p{font-size:15.5px;color:var(--text2);max-width:560px;margin:0 auto;line-height:1.75;font-weight:300;}
+.tag{
+  display:inline-block;font-size:11px;font-weight:600;
+  padding:5px 16px;border-radius:30px;letter-spacing:1.2px;
+  text-transform:uppercase;margin-bottom:14px;
+  background:var(--tag-bg);color:var(--tag-text);
+}
+[data-theme="dark"] .tag{
+  background:rgba(124,92,252,0.15);color:#a08cff;
+  border:1px solid rgba(124,92,252,0.25);
+}
+
+/* ═══ DEPARTMENTS ═══ */
+.dept-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:16px;}
+.dept-card{
+  background:var(--card);border:1.5px solid var(--border);border-radius:20px;
+  padding:28px 20px;text-align:center;cursor:pointer;transition:all .3s;
+  box-shadow:var(--shadow2);
+}
+.dept-card:hover{
+  transform:translateY(-5px);border-color:var(--card-hover-border);
+  box-shadow:var(--shadow);
+}
+[data-theme="dark"] .dept-card{
+  background:rgba(20,20,42,0.9);
+  border-color:rgba(124,92,252,0.12);
+}
+[data-theme="dark"] .dept-card:hover{
+  border-color:#7c5cfc;
+  box-shadow:0 0 30px rgba(124,92,252,0.2),0 8px 32px rgba(0,0,0,0.4);
+  background:rgba(28,24,58,0.95);
+}
+.dept-card .dept-icon{font-size:38px;margin-bottom:13px;display:block;transition:transform .3s;}
+.dept-card:hover .dept-icon{transform:scale(1.15);}
+.dept-card h4{font-size:13.5px;font-weight:600;color:var(--text);margin-bottom:5px;}
+[data-theme="dark"] .dept-card h4{color:#d0c8f8;}
+.dept-card p{font-size:11.5px;color:var(--text3);}
+
+/* ═══ DOCTORS ═══ */
+.doctor-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(272px,1fr));gap:22px;}
+.doctor-card{
+  background:var(--card);border:1.5px solid var(--border);
+  border-radius:22px;overflow:hidden;transition:all .3s;box-shadow:var(--shadow2);
+}
+.doctor-card:hover{transform:translateY(-5px);box-shadow:var(--shadow);border-color:var(--card-hover-border);}
+[data-theme="dark"] .doctor-card{background:rgba(18,18,38,0.95);border-color:rgba(124,92,252,0.12);}
+[data-theme="dark"] .doctor-card:hover{
+  border-color:#7c5cfc;
+  box-shadow:0 0 40px rgba(124,92,252,0.18),0 12px 40px rgba(0,0,0,0.5);
+}
+.doctor-top{height:155px;display:flex;align-items:center;justify-content:center;font-size:80px;position:relative;}
+[data-theme="dark"] .doctor-top{
+  background:rgba(124,92,252,0.06) !important;
+  border-bottom:1px solid rgba(124,92,252,0.12);
+}
+.doctor-top .avail-badge{position:absolute;top:12px;right:12px;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600;}
+.avail-badge.available{background:var(--badge-avail);color:var(--badge-avail-text);}
+.avail-badge.busy{background:var(--badge-busy);color:var(--badge-busy-text);}
+[data-theme="dark"] .avail-badge.available{box-shadow:0 0 10px rgba(0,240,212,0.2);}
+.doctor-body{padding:18px 20px;}
+.doctor-body h4{font-size:15px;font-weight:600;color:var(--text);margin-bottom:3px;}
+[data-theme="dark"] .doctor-body h4{color:#d8d0f8;}
+.doctor-body .spec{font-size:12px;color:var(--primary);font-weight:600;margin-bottom:8px;}
+[data-theme="dark"] .doctor-body .spec{color:#a08cff;}
+.doctor-body .exp{font-size:12px;color:var(--text3);margin-bottom:10px;}
+.doctor-timing{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text2);margin-bottom:12px;}
+.stars{display:flex;gap:2px;font-size:13px;margin-bottom:12px;align-items:center;}
+.star{color:var(--star);}
+.btn-book-doc{
+  width:100%;background:var(--gradient);color:#fff;border:none;
+  border-radius:11px;padding:10px;font-size:13px;font-weight:600;
+  cursor:pointer;transition:all .25s;font-family:'Outfit',sans-serif;
+}
+.btn-book-doc:hover{opacity:.88;transform:translateY(-2px);box-shadow:var(--shadow);}
+[data-theme="dark"] .btn-book-doc{box-shadow:0 0 20px rgba(124,92,252,0.25);}
+[data-theme="dark"] .btn-book-doc:hover{box-shadow:0 0 30px rgba(124,92,252,0.45);}
+
+/* ═══ APPOINTMENT ═══ */
+#appointment{background:var(--section-alt);}
+[data-theme="dark"] #appointment{background:var(--surface);}
+.appt-wrapper{display:grid;grid-template-columns:1fr 1.5fr;gap:40px;align-items:start;}
+.appt-info{background:var(--gradient);border-radius:22px;padding:36px;color:#fff;}
+[data-theme="dark"] .appt-info{
+  background:linear-gradient(145deg,#1e1440,#2a1060);
+  border:1px solid rgba(124,92,252,0.3);
+  box-shadow:0 0 40px rgba(124,92,252,0.15);
+}
+.appt-info h3{font-family:'Cormorant Garamond',serif;font-size:24px;margin-bottom:22px;font-weight:700;}
+[data-theme="dark"] .appt-info h3{color:#c8b8ff;}
+.appt-info-item{display:flex;align-items:flex-start;gap:15px;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,0.15);}
+.appt-info-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+[data-theme="dark"] .appt-info-item{border-bottom-color:rgba(124,92,252,0.2);}
+.appt-info-icon{font-size:22px;flex-shrink:0;}
+.appt-info-text label{font-size:10.5px;letter-spacing:0.8px;text-transform:uppercase;}
+[data-theme="light"] .appt-info-text label{color:rgba(255,255,255,0.65);}
+[data-theme="dark"] .appt-info-text label{color:rgba(160,140,255,0.6);}
+.appt-info-text p{font-size:14px;margin-top:4px;line-height:1.55;}
+[data-theme="light"] .appt-info-text p{color:#fff;}
+[data-theme="dark"] .appt-info-text p{color:#c8b8ff;}
+.appt-form{
+  background:var(--card);border:1.5px solid var(--border);
+  border-radius:22px;padding:36px;box-shadow:var(--shadow);
+}
+[data-theme="dark"] .appt-form{
+  background:rgba(14,14,28,0.95);border-color:rgba(124,92,252,0.18);
+  box-shadow:0 0 40px rgba(124,92,252,0.1);
+}
+.appt-form h3{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--text);margin-bottom:24px;font-weight:700;}
+[data-theme="dark"] .appt-form h3{color:#d8d0f8;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.form-group{margin-bottom:18px;}
+.form-group label{
+  display:block;font-size:12.5px;font-weight:600;color:var(--text2);
+  margin-bottom:7px;letter-spacing:0.4px;
+}
+[data-theme="dark"] .form-group label{color:#8880aa;}
+.form-group input,.form-group select,.form-group textarea{
+  width:100%;background:var(--input-bg);border:1.5px solid var(--input-border);
+  border-radius:11px;padding:11px 15px;font-size:14px;color:var(--text);
+  font-family:'Outfit',sans-serif;transition:all .25s;outline:none;
+}
+[data-theme="dark"] .form-group input,
+[data-theme="dark"] .form-group select,
+[data-theme="dark"] .form-group textarea{color:#d8d0f8;}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{
+  border-color:var(--primary);
+  box-shadow:0 0 0 4px var(--input-focus-shadow);
+}
+[data-theme="dark"] .form-group input:focus,
+[data-theme="dark"] .form-group select:focus,
+[data-theme="dark"] .form-group textarea:focus{
+  border-color:#7c5cfc;
+  box-shadow:0 0 0 4px rgba(124,92,252,0.15);
+}
+.form-group textarea{resize:vertical;min-height:90px;}
+.form-group select option{background:var(--card);color:var(--text);}
+[data-theme="dark"] .form-group select option{background:#0e0e20;}
+.btn-submit{
+  width:100%;background:var(--gradient);color:#fff;border:none;
+  border-radius:13px;padding:14px;font-size:15px;font-weight:700;
+  cursor:pointer;transition:all .25s;margin-top:6px;
+  font-family:'Outfit',sans-serif;letter-spacing:0.3px;
+  box-shadow:0 4px 20px var(--btn-submit-shadow);
+}
+.btn-submit:hover{transform:translateY(-2px);box-shadow:0 8px 32px var(--btn-submit-shadow);}
+[data-theme="dark"] .btn-submit{box-shadow:0 0 30px rgba(124,92,252,0.4);}
+[data-theme="dark"] .btn-submit:hover{box-shadow:0 0 50px rgba(124,92,252,0.6);}
+
+/* ═══ MY APPOINTMENTS ═══ */
+#my-appointments{background:var(--bg);}
+.appt-list{display:flex;flex-direction:column;gap:16px;}
+.appt-item{
+  background:var(--card);border:1.5px solid var(--border);
+  border-radius:18px;padding:22px 26px;display:flex;align-items:center;gap:22px;
+  box-shadow:var(--shadow2);transition:all .3s;
+}
+.appt-item:hover{box-shadow:var(--shadow);border-color:var(--card-hover-border);}
+[data-theme="dark"] .appt-item{background:rgba(16,16,36,0.9);border-color:rgba(124,92,252,0.12);}
+[data-theme="dark"] .appt-item:hover{border-color:#7c5cfc;box-shadow:0 0 30px rgba(124,92,252,0.15);}
+.appt-item-icon{font-size:40px;flex-shrink:0;}
+.appt-item-info{flex:1;}
+.appt-item-info h4{font-size:15.5px;font-weight:600;color:var(--text);margin-bottom:4px;}
+[data-theme="dark"] .appt-item-info h4{color:#d8d0f8;}
+.appt-item-info p{font-size:13px;color:var(--text2);margin-bottom:2px;}
+.appt-item-actions{display:flex;gap:10px;flex-shrink:0;}
+.btn-download{
+  background:var(--tag-bg);color:var(--primary);border:1.5px solid var(--border);
+  border-radius:10px;padding:9px 16px;font-size:13px;font-weight:600;
+  cursor:pointer;transition:all .2s;font-family:'Outfit',sans-serif;
+}
+.btn-download:hover{background:var(--primary);color:#fff;border-color:var(--primary);}
+[data-theme="dark"] .btn-download{
+  background:rgba(124,92,252,0.1);color:#a08cff;border-color:rgba(124,92,252,0.25);
+}
+[data-theme="dark"] .btn-download:hover{background:#7c5cfc;color:#fff;box-shadow:0 0 20px rgba(124,92,252,0.4);}
+.btn-cancel{
+  background:var(--badge-busy);color:var(--badge-busy-text);
+  border:1.5px solid transparent;border-radius:10px;padding:9px 16px;
+  font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;font-family:'Outfit',sans-serif;
+}
+.btn-cancel:hover{opacity:.8;transform:scale(0.97);}
+
+/* ═══ REVIEWS ═══ */
+#reviews{background:var(--section-alt);}
+[data-theme="dark"] #reviews{background:var(--surface);}
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;}
+.review-card{
+  background:var(--card);border:1.5px solid var(--border);
+  border-radius:20px;padding:26px;box-shadow:var(--shadow2);transition:all .3s;
+}
+.review-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--card-hover-border);}
+[data-theme="dark"] .review-card{background:rgba(16,16,36,0.9);border-color:rgba(124,92,252,0.10);}
+[data-theme="dark"] .review-card:hover{border-color:#7c5cfc;box-shadow:0 0 30px rgba(124,92,252,0.15);}
+.review-header{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.review-avatar{
+  width:46px;height:46px;border-radius:50%;
+  background:var(--gradient);display:flex;align-items:center;
+  justify-content:center;color:#fff;font-size:18px;font-weight:700;flex-shrink:0;
+  font-family:'Cormorant Garamond',serif;
+}
+[data-theme="dark"] .review-avatar{box-shadow:0 0 16px rgba(124,92,252,0.35);}
+.review-meta h5{font-size:14px;font-weight:600;color:var(--text);}
+[data-theme="dark"] .review-meta h5{color:#d0c8f8;}
+.review-meta span{font-size:11.5px;color:var(--text3);}
+.review-text{font-size:13.5px;color:var(--text2);line-height:1.75;font-style:italic;}
+.review-dept{font-size:11.5px;color:var(--primary);font-weight:600;margin-top:12px;letter-spacing:0.3px;}
+[data-theme="dark"] .review-dept{color:#a08cff;}
+
+/* ═══ TOP DOCTORS ═══ */
+#top-doctors{background:var(--bg);}
+.top-doc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px;}
+.top-doc-card{
+  background:var(--card);border:1.5px solid var(--border);
+  border-radius:20px;padding:24px;text-align:center;box-shadow:var(--shadow2);transition:all .3s;
+}
+.top-doc-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--card-hover-border);}
+[data-theme="dark"] .top-doc-card{background:rgba(16,16,36,0.9);border-color:rgba(124,92,252,0.10);}
+[data-theme="dark"] .top-doc-card:hover{border-color:#7c5cfc;box-shadow:0 0 30px rgba(124,92,252,0.18);}
+.top-doc-card .avatar{font-size:52px;margin-bottom:10px;display:block;transition:transform .3s;}
+.top-doc-card:hover .avatar{transform:scale(1.1);}
+.top-doc-card .rank{
+  display:inline-block;color:#fff;font-size:10.5px;font-weight:700;
+  padding:3px 12px;border-radius:20px;margin-bottom:10px;
+  background:var(--gradient);
+}
+[data-theme="dark"] .top-doc-card .rank{box-shadow:0 0 14px rgba(124,92,252,0.4);}
+.top-doc-card h4{font-size:14px;font-weight:600;color:var(--text);margin-bottom:2px;}
+[data-theme="dark"] .top-doc-card h4{color:#d0c8f8;}
+.top-doc-card .spec{font-size:11.5px;color:var(--primary);margin-bottom:6px;font-weight:500;}
+[data-theme="dark"] .top-doc-card .spec{color:#a08cff;}
+.top-doc-card .rating{font-size:13px;font-weight:700;color:var(--text);}
+[data-theme="dark"] .top-doc-card .rating{color:#c8b8ff;}
+
+/* ═══ CHATBOT ═══ */
+.chatbot-fab{
+  position:fixed;bottom:30px;right:30px;z-index:900;
+  width:60px;height:60px;border-radius:50%;background:var(--gradient);border:none;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-size:26px;transition:all .3s;
+  box-shadow:0 6px 24px var(--btn-submit-shadow);
+}
+.chatbot-fab:hover{transform:scale(1.1) rotate(-10deg);}
+[data-theme="dark"] .chatbot-fab{box-shadow:0 0 30px rgba(124,92,252,0.6);}
+.chatbot-window{
+  position:fixed;bottom:105px;right:30px;z-index:900;width:360px;height:490px;
+  background:var(--chat-bg);border-radius:24px;border:1.5px solid var(--border);
+  display:flex;flex-direction:column;overflow:hidden;
+  transform:scale(0);transform-origin:bottom right;
+  transition:transform .3s cubic-bezier(.4,0,.2,1),opacity .3s;
+  opacity:0;pointer-events:none;box-shadow:0 20px 60px rgba(0,0,0,0.2);
+}
+.chatbot-window.open{transform:scale(1);opacity:1;pointer-events:all;}
+[data-theme="dark"] .chatbot-window{
+  border-color:rgba(124,92,252,0.3);
+  box-shadow:0 0 60px rgba(124,92,252,0.2),0 20px 60px rgba(0,0,0,0.5);
+}
+.chat-header{background:var(--gradient);padding:16px 20px;display:flex;align-items:center;gap:12px;}
+.chat-header-icon{font-size:26px;}
+.chat-header-text h4{font-size:15px;font-weight:700;color:#fff;font-family:'Outfit',sans-serif;}
+.chat-header-text p{font-size:11px;color:rgba(255,255,255,0.78);}
+.chat-close{margin-left:auto;background:rgba(255,255,255,0.18);border:none;border-radius:8px;padding:5px 10px;cursor:pointer;font-size:15px;color:#fff;transition:background .2s;}
+.chat-close:hover{background:rgba(255,255,255,0.3);}
+.chat-messages{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;}
+.chat-msg{max-width:82%;display:flex;flex-direction:column;}
+.chat-msg.user{align-self:flex-end;align-items:flex-end;}
+.chat-msg.bot{align-self:flex-start;align-items:flex-start;}
+.chat-bubble{padding:10px 15px;border-radius:14px;font-size:13px;line-height:1.6;font-family:'Outfit',sans-serif;}
+.chat-msg.user .chat-bubble{background:var(--chat-user);color:#fff;border-bottom-right-radius:4px;}
+[data-theme="dark"] .chat-msg.user .chat-bubble{box-shadow:0 0 16px rgba(124,92,252,0.35);}
+.chat-msg.bot .chat-bubble{background:var(--chat-bot);color:var(--text);border-bottom-left-radius:4px;}
+[data-theme="dark"] .chat-msg.bot .chat-bubble{color:#d0c8f8;border:1px solid rgba(124,92,252,0.12);}
+.chat-quick-btns{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px;}
+.chat-quick-btn{
+  background:var(--tag-bg);color:var(--primary);
+  border:1.5px solid rgba(11,123,107,0.2);
+  border-radius:20px;padding:5px 12px;font-size:11px;font-weight:600;
+  cursor:pointer;transition:all .2s;font-family:'Outfit',sans-serif;
+}
+.chat-quick-btn:hover{background:var(--primary);color:#fff;}
+[data-theme="dark"] .chat-quick-btn{
+  background:rgba(124,92,252,0.12);color:#a08cff;border-color:rgba(124,92,252,0.25);
+}
+[data-theme="dark"] .chat-quick-btn:hover{background:#7c5cfc;color:#fff;box-shadow:0 0 14px rgba(124,92,252,0.4);}
+.chat-input-area{
+  padding:12px 14px;border-top:1.5px solid var(--border);
+  display:flex;gap:10px;align-items:center;
+}
+.chat-input-area input{
+  flex:1;background:var(--input-bg);border:1.5px solid var(--input-border);
+  border-radius:11px;padding:9px 14px;font-size:13px;color:var(--text);
+  outline:none;font-family:'Outfit',sans-serif;transition:border .2s;
+}
+.chat-input-area input:focus{border-color:var(--primary);}
+[data-theme="dark"] .chat-input-area input:focus{border-color:#7c5cfc;box-shadow:0 0 12px rgba(124,92,252,0.15);}
+.chat-send{
+  background:var(--gradient);border:none;border-radius:10px;
+  padding:9px 14px;cursor:pointer;font-size:16px;color:#fff;transition:all .2s;
+}
+.chat-send:hover{transform:scale(1.08);}
+[data-theme="dark"] .chat-send{box-shadow:0 0 16px rgba(124,92,252,0.35);}
+
+/* ═══ MODAL ═══ */
+.modal-overlay{
+  position:fixed;inset:0;z-index:2000;background:var(--modal-bg);
+  backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;
+  padding:20px;opacity:0;pointer-events:none;transition:opacity .3s;
+}
+.modal-overlay.open{opacity:1;pointer-events:all;}
+.modal{
+  background:var(--card);border-radius:24px;padding:36px;
+  max-width:480px;width:100%;box-shadow:0 20px 70px rgba(0,0,0,0.22);
+  transform:scale(0.9) translateY(20px);transition:transform .3s cubic-bezier(.4,0,.2,1);
+  border:1.5px solid var(--border);
+}
+[data-theme="dark"] .modal{
+  background:rgba(14,14,30,0.98);border-color:rgba(124,92,252,0.25);
+  box-shadow:0 0 80px rgba(124,92,252,0.15),0 20px 60px rgba(0,0,0,0.6);
+}
+.modal-overlay.open .modal{transform:scale(1) translateY(0);}
+.modal-header{display:flex;align-items:center;gap:14px;margin-bottom:22px;}
+.modal-icon{font-size:36px;}
+.modal-header h3{font-family:'Cormorant Garamond',serif;font-size:21px;color:var(--text);font-weight:700;}
+[data-theme="dark"] .modal-header h3{color:#d8d0f8;}
+.modal-body{margin-bottom:24px;}
+.modal-body p{font-size:14px;color:var(--text2);line-height:1.75;margin-bottom:12px;}
+.modal-actions{display:flex;gap:12px;justify-content:flex-end;}
+.btn-modal-secondary{
+  background:var(--surface2);color:var(--text2);border:1.5px solid var(--border);
+  border-radius:11px;padding:11px 20px;font-size:14px;font-weight:600;
+  cursor:pointer;transition:all .2s;font-family:'Outfit',sans-serif;
+}
+.btn-modal-secondary:hover{opacity:.8;}
+.btn-modal-primary{
+  background:var(--gradient);color:#fff;border:none;
+  border-radius:11px;padding:11px 20px;font-size:14px;font-weight:600;
+  cursor:pointer;transition:all .2s;font-family:'Outfit',sans-serif;
+}
+.btn-modal-primary:hover{opacity:.9;transform:translateY(-1px);}
+[data-theme="dark"] .btn-modal-primary{box-shadow:0 0 20px rgba(124,92,252,0.35);}
+.btn-modal-danger{
+  background:var(--danger);color:#fff;border:none;
+  border-radius:11px;padding:11px 20px;font-size:14px;font-weight:600;
+  cursor:pointer;transition:all .2s;font-family:'Outfit',sans-serif;
+}
+.btn-modal-danger:hover{opacity:.9;transform:translateY(-1px);}
+
+/* ═══ TOAST ═══ */
+.toast-container{
+  position:fixed;bottom:32px;left:50%;transform:translateX(-50%);
+  z-index:9999;display:flex;flex-direction:column;gap:10px;pointer-events:none;
+}
+.toast{
+  background:var(--card);border:1.5px solid var(--border);
+  border-radius:14px;padding:14px 22px;font-size:14px;color:var(--text);
+  box-shadow:0 8px 30px rgba(0,0,0,0.15);display:flex;align-items:center;gap:10px;
+  animation:slideUp .3s cubic-bezier(.4,0,.2,1);min-width:280px;max-width:380px;
+  font-family:'Outfit',sans-serif;
+}
+[data-theme="dark"] .toast{
+  background:rgba(18,14,40,0.98);border-color:rgba(124,92,252,0.25);color:#d0c8f8;
+  box-shadow:0 0 30px rgba(124,92,252,0.15),0 8px 30px rgba(0,0,0,0.4);
+}
+.toast.success{border-color:var(--success);}
+.toast.error{border-color:var(--danger);}
+.toast.warning{border-color:var(--warning);}
+@keyframes slideUp{from{transform:translateY(30px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+
+/* ═══ FOOTER ═══ */
+footer{background:var(--footer-bg);color:var(--footer-text);padding:64px 28px 32px;}
+.footer-inner{max-width:1340px;margin:0 auto;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:44px;margin-bottom:52px;}
+.footer-brand h3{font-family:'Cormorant Garamond',serif;color:#fff;font-size:22px;margin-bottom:12px;font-weight:700;}
+[data-theme="dark"] footer{background:#04040c;}
+[data-theme="dark"] .footer-brand h3{color:#c8b8ff;}
+.footer-brand p{font-size:13.5px;line-height:1.75;margin-bottom:10px;}
+.footer-social{display:flex;gap:10px;margin-top:16px;}
+.social-btn{
+  width:36px;height:36px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:15px;cursor:pointer;transition:all .2s;
+  background:rgba(255,255,255,0.06);
+}
+.social-btn:hover{background:var(--primary);transform:translateY(-2px);}
+[data-theme="dark"] .social-btn:hover{background:#7c5cfc;box-shadow:0 0 16px rgba(124,92,252,0.4);}
+.footer-col h4{font-size:13px;font-weight:700;color:#fff;margin-bottom:16px;letter-spacing:1px;text-transform:uppercase;}
+[data-theme="dark"] .footer-col h4{color:#a08cff;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:9px;}
+.footer-col ul li a{font-size:13px;color:var(--footer-text);transition:color .2s;}
+.footer-col ul li a:hover{color:#fff;}
+[data-theme="dark"] .footer-col ul li a:hover{color:#a08cff;}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.06);padding-top:26px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.footer-bottom p{font-size:12px;}
+.footer-badges{display:flex;gap:10px;}
+.footer-badge{
+  background:rgba(255,255,255,0.05);border-radius:9px;
+  padding:6px 14px;font-size:11px;font-weight:600;color:var(--footer-text);
+  border:1px solid rgba(255,255,255,0.06);
+}
+[data-theme="dark"] .footer-badge{
+  border-color:rgba(124,92,252,0.15);color:#5a537a;
+}
+
+/* ═══ MISC ═══ */
+.empty-state{text-align:center;padding:54px 20px;color:var(--text3);}
+.empty-state .empty-icon{font-size:62px;margin-bottom:14px;}
+.empty-state p{font-size:15px;}
+.dept-select-highlight{display:flex;flex-direction:column;gap:2px;margin-bottom:4px;}
+
+/* ═══ POPUP ═══ */
+.popup-overlay{
+  position:fixed;inset:0;z-index:3000;background:var(--modal-bg);
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;opacity:0;pointer-events:none;transition:opacity .25s;
+}
+.popup-overlay.open{opacity:1;pointer-events:all;}
+.popup{
+  background:var(--card);border-radius:20px;padding:34px;
+  max-width:380px;width:100%;text-align:center;
+  box-shadow:0 20px 70px rgba(0,0,0,0.25);border:2px solid var(--danger);
+}
+[data-theme="dark"] .popup{
+  background:rgba(16,8,20,0.98);border-color:#ff5f85;
+  box-shadow:0 0 60px rgba(255,95,133,0.2),0 20px 60px rgba(0,0,0,0.7);
+}
+.popup .popup-icon{font-size:50px;margin-bottom:14px;}
+.popup h3{font-size:19px;font-weight:700;color:var(--text);margin-bottom:10px;font-family:'Cormorant Garamond',serif;}
+[data-theme="dark"] .popup h3{color:#f0e8ff;}
+.popup p{font-size:14px;color:var(--text2);line-height:1.65;margin-bottom:22px;}
+.popup button{
+  background:var(--gradient);color:#fff;border:none;border-radius:11px;
+  padding:12px 30px;font-size:14px;font-weight:700;cursor:pointer;
+  font-family:'Outfit',sans-serif;transition:all .2s;
+}
+.popup button:hover{transform:translateY(-2px);}
+[data-theme="dark"] .popup button{box-shadow:0 0 20px rgba(124,92,252,0.4);}
+
+/* ═══ ABOUT ═══ */
+#about{background:var(--bg);}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center;}
+.about-text h2{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,3.5vw,40px);color:var(--text);margin-bottom:18px;font-weight:700;}
+[data-theme="dark"] .about-text h2{color:#e0d8ff;}
+.about-text p{font-size:15px;color:var(--text2);line-height:1.85;margin-bottom:16px;font-weight:300;}
+.about-features{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px;}
+.about-feature{display:flex;align-items:flex-start;gap:11px;}
+.about-feature-icon{font-size:22px;flex-shrink:0;}
+.about-feature-text h5{font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px;}
+[data-theme="dark"] .about-feature-text h5{color:#c8b8ff;}
+.about-feature-text p{font-size:12px;color:var(--text3);}
+.about-visual{
+  background:var(--gradient);border-radius:26px;padding:44px;
+  text-align:center;color:#fff;position:relative;overflow:hidden;
+}
+[data-theme="dark"] .about-visual{
+  background:linear-gradient(145deg,#1e1440,#0d1a30);
+  border:1px solid rgba(124,92,252,0.3);
+  box-shadow:0 0 60px rgba(124,92,252,0.15);
+}
+.about-visual::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 30% 20%,rgba(255,255,255,0.08) 0%,transparent 60%);
+}
+.about-visual .big-icon{font-size:90px;margin-bottom:20px;display:block;position:relative;}
+.about-visual p{font-size:15px;line-height:1.75;opacity:.88;position:relative;}
+[data-theme="dark"] .about-visual p{color:#c8b8ff;opacity:1;}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:920px){
+  .hero-content,.appt-wrapper,.about-grid{grid-template-columns:1fr;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+  .form-row{grid-template-columns:1fr;}
+  .hero-card{display:none;}
+}
+@media(max-width:600px){
+  .nav-links{display:none;}
+  .footer-grid{grid-template-columns:1fr;}
+  .appt-item{flex-direction:column;align-items:flex-start;}
+  .hero-stats{grid-template-columns:repeat(3,1fr);}
+  section{padding:60px 18px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="logo">
+      <div class="logo-icon">BM</div>
+      <div class="logo-text">
+        <h1>BM Multi Speciality Hospital</h1>
+        <span>Excellence in Healthcare Since 1998</span>
+      </div>
+    </div>
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#departments">Departments</a>
+      <a href="#doctors">Doctors</a>
+      <a href="#appointment">Book Appointment</a>
+      <a href="#my-appointments">My Appointments</a>
+      <a href="#reviews">Reviews</a>
+    </div>
+    <div class="nav-right">
+      <button class="btn-theme" onclick="toggleTheme()" title="Toggle Theme" id="themeBtn">🌙</button>
+      <button class="btn-primary" onclick="scrollTo('#appointment')">📅 Book Now</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="tag" style="background:rgba(255,255,255,0.18);color:#fff;">🏆 #1 Rated Hospital in the Region</div>
+      <h2>Your Health,<br>Our <span>Priority</span></h2>
+      <p>World-class medical care with compassionate service. Over 80+ specialist doctors across 12 departments, available for in-person and telemedicine consultations.</p>
+      <div class="hero-btns">
+        <button class="btn-hero-primary" onclick="scrollTo('#appointment')">📅 Book Appointment</button>
+        <button class="btn-hero-secondary" onclick="scrollTo('#doctors')">👨‍⚕️ Meet Our Doctors</button>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><h3>25+</h3><p>Years of Excellence</p></div>
+        <div class="hero-stat"><h3>80+</h3><p>Specialist Doctors</p></div>
+        <div class="hero-stat"><h3>1.2L+</h3><p>Happy Patients</p></div>
+      </div>
+    </div>
+    <div class="hero-card">
+      <h3>📞 Quick Contact</h3>
+      <div class="quick-contact">
+        <div class="contact-item">
+          <div class="contact-icon">📱</div>
+          <div class="contact-info">
+            <label>Emergency Helpline</label>
+            <p>+91 98400 12345</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div class="contact-info">
+            <label>Appointment Booking</label>
+            <p>+91 44 2810 6789</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🚑</div>
+          <div class="contact-info">
+            <label>Ambulance (24/7)</label>
+            <p>+91 98765 00108</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div class="contact-info">
+            <label>Location</label>
+            <p>No. 14, Anna Salai, Chennai - 600002</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🕐</div>
+          <div class="contact-info">
+            <label>OPD Timings</label>
+            <p>Mon–Sat: 8:00 AM – 8:00 PM</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-text">
+        <div class="tag">About Us</div>
+        <h2>Caring for Lives with Precision & Compassion</h2>
+        <p>BM Multi Speciality Hospital has been a beacon of hope and healing since 1998. Nestled in the heart of Chennai, we combine the latest medical technology with genuine human compassion to deliver exceptional healthcare outcomes.</p>
+        <p>Our NABH-accredited facility spans over 3 lakh sq. ft., housing state-of-the-art operation theatres, ICU suites, diagnostic imaging, and dedicated specialty floors.</p>
+        <div class="about-features">
+          <div class="about-feature"><div class="about-feature-icon">🧪</div><div class="about-feature-text"><h5>Advanced Diagnostics</h5><p>MRI, CT, PET Scan & more</p></div></div>
+          <div class="about-feature"><div class="about-feature-icon">🏥</div><div class="about-feature-text"><h5>500+ Bed Capacity</h5><p>Including private & ICU</p></div></div>
+          <div class="about-feature"><div class="about-feature-icon">🚑</div><div class="about-feature-text"><h5>24/7 Emergency</h5><p>Round-the-clock care</p></div></div>
+          <div class="about-feature"><div class="about-feature-icon">🏆</div><div class="about-feature-text"><h5>NABH Accredited</h5><p>National quality standards</p></div></div>
+        </div>
+      </div>
+      <div class="about-visual">
+        <div class="big-icon">🏥</div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:22px;margin-bottom:12px;">BM Multi Speciality Hospital</h3>
+        <p>A 500-bed super-speciality hospital equipped with cutting-edge technology and staffed by India's finest medical professionals — committed to your health and well-being every single day.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEPARTMENTS -->
+<section id="departments" style="background:var(--surface);">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="tag">Our Specialities</div>
+      <h2>12 Departments. One Destination.</h2>
+      <p>From routine check-ups to complex surgeries, our specialist departments cover every aspect of your health journey.</p>
+    </div>
+    <div class="dept-grid" id="deptGrid"></div>
+  </div>
+</section>
+
+<!-- DOCTORS -->
+<section id="doctors">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="tag">Our Team</div>
+      <h2>Meet Our Specialist Doctors</h2>
+      <p>Highly qualified, experienced professionals dedicated to delivering the best patient outcomes.</p>
+    </div>
+    <div class="doctor-grid" id="doctorGrid"></div>
+  </div>
+</section>
+
+<!-- APPOINTMENT -->
+<section id="appointment">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="tag">Book Appointment</div>
+      <h2>Schedule Your Visit</h2>
+      <p>Fill in your details and choose a convenient slot. Our team will confirm your appointment shortly.</p>
+    </div>
+    <div class="appt-wrapper">
+      <div class="appt-info">
+        <h3>📋 Why Choose Us?</h3>
+        <div class="appt-info-item">
+          <div class="appt-info-icon">⏱️</div>
+          <div class="appt-info-text"><label>OPD Hours</label><p>Monday – Saturday<br>8:00 AM – 8:00 PM</p></div>
+        </div>
+        <div class="appt-info-item">
+          <div class="appt-info-icon">📱</div>
+          <div class="appt-info-text"><label>Appointment Helpline</label><p>+91 98400 12345<br>+91 44 2810 6789</p></div>
+        </div>
+        <div class="appt-info-item">
+          <div class="appt-info-icon">✅</div>
+          <div class="appt-info-text"><label>Instant Confirmation</label><p>Get PDF confirmation & reminders on your phone</p></div>
+        </div>
+        <div class="appt-info-item">
+          <div class="appt-info-icon">🔒</div>
+          <div class="appt-info-text"><label>Secure & Private</label><p>Your health data is protected at all times</p></div>
+        </div>
+      </div>
+      <div class="appt-form">
+        <h3>📝 Patient Details</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Full Name *</label>
+            <input type="text" id="patName" placeholder="Your full name">
+          </div>
+          <div class="form-group">
+            <label>Mobile Number *</label>
+            <input type="tel" id="patMobile" placeholder="+91 XXXXX XXXXX">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Gender *</label>
+            <select id="patGender">
+              <option value="">Select Gender</option>
+              <option>Male</option>
+              <option>Female</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Age *</label>
+            <input type="number" id="patAge" placeholder="Your age" min="1" max="120">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" id="patEmail" placeholder="your@email.com">
+          </div>
+          <div class="form-group">
+            <label>Appointment Date *</label>
+            <input type="date" id="patDate">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Select Department *</label>
+            <select id="patDept" onchange="filterDoctorsByDept()">
+              <option value="">Choose Department</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Select Doctor *</label>
+            <select id="patDoc">
+              <option value="">Choose Doctor</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Preferred Time Slot *</label>
+            <select id="patTime">
+              <option value="">Select Time</option>
+              <option>8:00 AM – 9:00 AM</option>
+              <option>9:00 AM – 10:00 AM</option>
+              <option>10:00 AM – 11:00 AM</option>
+              <option>11:00 AM – 12:00 PM</option>
+              <option>2:00 PM – 3:00 PM</option>
+              <option>3:00 PM – 4:00 PM</option>
+              <option>4:00 PM – 5:00 PM</option>
+              <option>5:00 PM – 6:00 PM</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Consultation Type *</label>
+            <select id="patType">
+              <option value="">Select Type</option>
+              <option>In-Person Visit</option>
+              <option>Telemedicine (Video Call)</option>
+              <option>Follow-Up Consultation</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Symptoms / Reason for Visit</label>
+          <textarea id="patSymptoms" placeholder="Briefly describe your symptoms or reason for the appointment..."></textarea>
+        </div>
+        <button class="btn-submit" onclick="bookAppointment()">📅 Confirm Appointment</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MY APPOINTMENTS -->
+<section id="my-appointments">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="tag">My Appointments</div>
+      <h2>Your Scheduled Appointments</h2>
+      <p>View, download confirmation, or cancel your upcoming appointments.</p>
+    </div>
+    <div class="appt-list" id="apptList">
+      <div class="empty-state">
+        <div class="empty-icon">📋</div>
+        <p>No appointments booked yet. <a href="#appointment" style="color:var(--primary);font-weight:600;" onclick="scrollTo('#appointment')">Book your first appointment!</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOP DOCTORS -->
+<section id="top-doctors">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="tag">Top Rated</div>
+      <h2>Our Star Physicians</h2>
+      <p>Recognized for excellence, empathy, and outstanding patient outcomes.</p>
+    </div>
+    <div class="top-doc-grid" id="topDoctorGrid"></div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="tag">Patient Reviews</div>
+      <h2>What Our Patients Say</h2>
+      <p>Real stories from real patients — their trust is our greatest achievement.</p>
+    </div>
+    <div class="reviews-grid" id="reviewsGrid"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>BM Multi Speciality Hospital</h3>
+        <p>Committed to delivering world-class healthcare with compassion and integrity. Your health is our mission.</p>
+        <p>📍 No. 14, Anna Salai, Chennai – 600002, Tamil Nadu</p>
+        <p style="margin-top:8px;">📞 +91 98400 12345 | +91 44 2810 6789</p>
+        <p>🚑 Ambulance: +91 98765 00108</p>
+        <div class="footer-social" style="margin-top:14px;">
+          <div class="social-btn">📘</div>
+          <div class="social-btn">🐦</div>
+          <div class="social-btn">📸</div>
+          <div class="social-btn">💼</div>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#departments">Departments</a></li>
+          <li><a href="#doctors">Our Doctors</a></li>
+          <li><a href="#appointment">Book Appointment</a></li>
+          <li><a href="#reviews">Patient Reviews</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#">Emergency Care</a></li>
+          <li><a href="#">Telemedicine</a></li>
+          <li><a href="#">Health Packages</a></li>
+          <li><a href="#">Diagnostics Lab</a></li>
+          <li><a href="#">Pharmacy</a></li>
+          <li><a href="#">Insurance Desk</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="#">📞 OPD: +91 44 2810 6789</a></li>
+          <li><a href="#">📱 Emergency: +91 98400 12345</a></li>
+          <li><a href="#">🚑 Ambulance: +91 98765 00108</a></li>
+          <li><a href="#">📧 <span class="__cf_email__" data-cfemail="87eee9e1e8c7e5eaefe8f4f7eef3e6eba9eee9">[email&#160;protected]</span></a></li>
+          <li><a href="#">🕐 OPD: Mon–Sat 8AM–8PM</a></li>
+          <li><a href="#">🏥 Emergency: 24/7</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 BM Multi Speciality Hospital. All rights reserved.</p>
+      <div class="footer-badges">
+        <div class="footer-badge">🏆 NABH Accredited</div>
+        <div class="footer-badge">✅ ISO 9001:2015</div>
+        <div class="footer-badge">🌟 JCI Certified</div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- CHATBOT -->
+<button class="chatbot-fab" onclick="toggleChat()" title="Chat with us">💬</button>
+<div class="chatbot-window" id="chatWindow">
+  <div class="chat-header">
+    <div class="chat-header-icon">🤖</div>
+    <div class="chat-header-text">
+      <h4>BM Health Assistant</h4>
+      <p>Online · Typically replies instantly</p>
+    </div>
+    <button class="chat-close" onclick="toggleChat()">✕</button>
+  </div>
+  <div class="chat-messages" id="chatMessages"></div>
+  <div class="chat-input-area">
+    <input type="text" id="chatInput" placeholder="Ask me anything..." onkeydown="if(event.key==='Enter')sendChat()">
+    <button class="chat-send" onclick="sendChat()">➤</button>
+  </div>
+</div>
+
+<!-- MODALS -->
+<div class="modal-overlay" id="cancelModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-icon">❌</div>
+      <h3>Cancel Appointment</h3>
+    </div>
+    <div class="modal-body">
+      <p>Please select the reason for cancelling your appointment. A cancellation receipt will be generated for your records.</p>
+      <div class="form-group">
+        <label>Reason for Cancellation *</label>
+        <select id="cancelReason">
+          <option value="">Select Reason</option>
+          <option>Personal Emergency</option>
+          <option>Feeling Better</option>
+          <option>Doctor Unavailability</option>
+          <option>Scheduling Conflict</option>
+          <option>Financial Constraints</option>
+          <option>Transportation Issues</option>
+          <option>Seeking Second Opinion</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group" id="otherReasonGroup" style="display:none;">
+        <label>Other Reason</label>
+        <textarea id="otherReason" placeholder="Please specify..." style="min-height:70px;"></textarea>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-modal-secondary" onclick="closeModal('cancelModal')">Keep Appointment</button>
+      <button class="btn-modal-danger" onclick="confirmCancel()">Cancel Appointment</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="successModal">
+  <div class="modal" style="text-align:center;">
+    <div style="font-size:60px;margin-bottom:16px;">🎉</div>
+    <h3 style="font-family:'Playfair Display',serif;font-size:22px;color:var(--text);margin-bottom:12px;">Appointment Confirmed!</h3>
+    <p style="font-size:14px;color:var(--text2);line-height:1.7;margin-bottom:24px;" id="successMsg"></p>
+    <div style="display:flex;gap:12px;justify-content:center;">
+      <button class="btn-modal-secondary" onclick="closeModal('successModal')">Close</button>
+      <button class="btn-modal-primary" onclick="downloadLastAppt()">📄 Download PDF</button>
+    </div>
+  </div>
+</div>
+
+<!-- WRONG FIELD POPUP -->
+<div class="popup-overlay" id="wrongFieldPopup">
+  <div class="popup">
+    <div class="popup-icon">⚠️</div>
+    <h3>Wrong Selection!</h3>
+    <p id="wrongFieldMsg">The selected doctor does not belong to the chosen department. Please select the correct doctor for the department.</p>
+    <button onclick="closePopup('wrongFieldPopup')">Got It, I'll Fix It</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast-container" id="toastContainer"></div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// ========== DATABASE ==========
+const DB = {
+  departments: [
+    {id:'cardio',name:'Cardiology',icon:'❤️',desc:'Heart & Vascular Care'},
+    {id:'neuro',name:'Neurology',icon:'🧠',desc:'Brain & Nerve Disorders'},
+    {id:'ortho',name:'Orthopaedics',icon:'🦴',desc:'Bone, Joint & Spine'},
+    {id:'onco',name:'Oncology',icon:'🎗️',desc:'Cancer Care & Treatment'},
+    {id:'peds',name:'Paediatrics',icon:'👶',desc:'Children\'s Health'},
+    {id:'gynae',name:'Gynaecology',icon:'🌸',desc:'Women\'s Health'},
+    {id:'gastro',name:'Gastroenterology',icon:'🫁',desc:'Digestive System'},
+    {id:'derma',name:'Dermatology',icon:'✨',desc:'Skin & Hair Care'},
+    {id:'ophthal',name:'Ophthalmology',icon:'👁️',desc:'Eye Care & Surgery'},
+    {id:'ent',name:'ENT',icon:'👂',desc:'Ear, Nose & Throat'},
+    {id:'pulmo',name:'Pulmonology',icon:'🫁',desc:'Lungs & Respiratory'},
+    {id:'nephro',name:'Nephrology',icon:'🫘',desc:'Kidney Care'},
+  ],
+  doctors: [
+    // CARDIOLOGY
+    {id:'d1',name:'Dr. Aravind Krishnamurthy',dept:'cardio',spec:'Senior Cardiologist',exp:'22 yrs',rating:4.9,timing:'9AM–1PM, 4PM–7PM',available:true,emoji:'👨‍⚕️'},
+    {id:'d2',name:'Dr. Priya Subramanian',dept:'cardio',spec:'Interventional Cardiologist',exp:'18 yrs',rating:4.8,timing:'10AM–2PM',available:true,emoji:'👩‍⚕️'},
+    {id:'d3',name:'Dr. Ramesh Venkataraman',dept:'cardio',spec:'Cardiac Electrophysiologist',exp:'15 yrs',rating:4.7,timing:'2PM–6PM',available:false,emoji:'👨‍⚕️'},
+    // NEUROLOGY
+    {id:'d4',name:'Dr. Shalini Mohan',dept:'neuro',spec:'Senior Neurologist',exp:'20 yrs',rating:4.9,timing:'9AM–1PM',available:true,emoji:'👩‍⚕️'},
+    {id:'d5',name:'Dr. Karthik Rajan',dept:'neuro',spec:'Neuro-Surgeon',exp:'17 yrs',rating:4.8,timing:'11AM–3PM',available:true,emoji:'👨‍⚕️'},
+    {id:'d6',name:'Dr. Meena Pillai',dept:'neuro',spec:'Paediatric Neurologist',exp:'12 yrs',rating:4.7,timing:'3PM–7PM',available:true,emoji:'👩‍⚕️'},
+    // ORTHOPAEDICS
+    {id:'d7',name:'Dr. Senthil Kumar',dept:'ortho',spec:'Joint Replacement Surgeon',exp:'25 yrs',rating:4.9,timing:'9AM–12PM',available:true,emoji:'👨‍⚕️'},
+    {id:'d8',name:'Dr. Deepa Anand',dept:'ortho',spec:'Spine Surgeon',exp:'16 yrs',rating:4.8,timing:'2PM–6PM',available:true,emoji:'👩‍⚕️'},
+    {id:'d9',name:'Dr. Balasubramanian N.',dept:'ortho',spec:'Sports Medicine Ortho',exp:'14 yrs',rating:4.6,timing:'10AM–2PM',available:false,emoji:'👨‍⚕️'},
+    // ONCOLOGY
+    {id:'d10',name:'Dr. Kavitha Natarajan',dept:'onco',spec:'Medical Oncologist',exp:'19 yrs',rating:4.9,timing:'10AM–2PM',available:true,emoji:'👩‍⚕️'},
+    {id:'d11',name:'Dr. Suresh Balaji',dept:'onco',spec:'Surgical Oncologist',exp:'22 yrs',rating:4.8,timing:'9AM–1PM',available:true,emoji:'👨‍⚕️'},
+    {id:'d12',name:'Dr. Anitha Ravi',dept:'onco',spec:'Radiation Oncologist',exp:'15 yrs',rating:4.7,timing:'3PM–7PM',available:false,emoji:'👩‍⚕️'},
+    // PAEDIATRICS
+    {id:'d13',name:'Dr. Lalitha Sundaram',dept:'peds',spec:'Paediatric Specialist',exp:'18 yrs',rating:4.9,timing:'9AM–1PM',available:true,emoji:'👩‍⚕️'},
+    {id:'d14',name:'Dr. Ganesh Rao',dept:'peds',spec:'Neonatologist',exp:'20 yrs',rating:4.8,timing:'11AM–3PM',available:true,emoji:'👨‍⚕️'},
+    {id:'d15',name:'Dr. Pavithra Selvan',dept:'peds',spec:'Paediatric Endocrinologist',exp:'12 yrs',rating:4.7,timing:'2PM–6PM',available:true,emoji:'👩‍⚕️'},
+    // GYNAECOLOGY
+    {id:'d16',name:'Dr. Revathi Chandran',dept:'gynae',spec:'Senior Gynaecologist',exp:'21 yrs',rating:4.9,timing:'9AM–1PM',available:true,emoji:'👩‍⚕️'},
+    {id:'d17',name:'Dr. Sudha Prabhu',dept:'gynae',spec:'Fertility Specialist',exp:'16 yrs',rating:4.8,timing:'2PM–6PM',available:true,emoji:'👩‍⚕️'},
+    {id:'d18',name:'Dr. Nirmala Babu',dept:'gynae',spec:'Maternal-Fetal Medicine',exp:'14 yrs',rating:4.7,timing:'10AM–2PM',available:false,emoji:'👩‍⚕️'},
+    // GASTROENTEROLOGY
+    {id:'d19',name:'Dr. Rajkumar Iyer',dept:'gastro',spec:'Senior Gastroenterologist',exp:'20 yrs',rating:4.8,timing:'9AM–1PM',available:true,emoji:'👨‍⚕️'},
+    {id:'d20',name:'Dr. Sangeetha Murugan',dept:'gastro',spec:'Hepatologist',exp:'15 yrs',rating:4.7,timing:'2PM–5PM',available:true,emoji:'👩‍⚕️'},
+    // DERMATOLOGY
+    {id:'d21',name:'Dr. Divya Krishnan',dept:'derma',spec:'Cosmetic Dermatologist',exp:'14 yrs',rating:4.9,timing:'10AM–2PM',available:true,emoji:'👩‍⚕️'},
+    {id:'d22',name:'Dr. Vikram Srinivas',dept:'derma',spec:'Clinical Dermatologist',exp:'18 yrs',rating:4.8,timing:'3PM–7PM',available:true,emoji:'👨‍⚕️'},
+    // OPHTHALMOLOGY
+    {id:'d23',name:'Dr. Meenakshi Raghavan',dept:'ophthal',spec:'Cataract & LASIK Surgeon',exp:'22 yrs',rating:4.9,timing:'9AM–12PM',available:true,emoji:'👩‍⚕️'},
+    {id:'d24',name:'Dr. Sanjay Subramaniam',dept:'ophthal',spec:'Retina Specialist',exp:'16 yrs',rating:4.8,timing:'2PM–6PM',available:false,emoji:'👨‍⚕️'},
+    // ENT
+    {id:'d25',name:'Dr. Harish Annamalai',dept:'ent',spec:'Senior ENT Specialist',exp:'19 yrs',rating:4.8,timing:'10AM–2PM',available:true,emoji:'👨‍⚕️'},
+    {id:'d26',name:'Dr. Vijaya Lakshmi',dept:'ent',spec:'Cochlear Implant Surgeon',exp:'14 yrs',rating:4.7,timing:'3PM–7PM',available:true,emoji:'👩‍⚕️'},
+    // PULMONOLOGY
+    {id:'d27',name:'Dr. Natarajan Krishnan',dept:'pulmo',spec:'Senior Pulmonologist',exp:'20 yrs',rating:4.8,timing:'9AM–1PM',available:true,emoji:'👨‍⚕️'},
+    {id:'d28',name:'Dr. Usha Devan',dept:'pulmo',spec:'Sleep & Respiratory Specialist',exp:'13 yrs',rating:4.7,timing:'2PM–6PM',available:true,emoji:'👩‍⚕️'},
+    // NEPHROLOGY
+    {id:'d29',name:'Dr. Subramaniam Pillai',dept:'nephro',spec:'Senior Nephrologist',exp:'24 yrs',rating:4.9,timing:'9AM–1PM',available:true,emoji:'👨‍⚕️'},
+    {id:'d30',name:'Dr. Chitra Venkat',dept:'nephro',spec:'Transplant Nephrologist',exp:'17 yrs',rating:4.8,timing:'2PM–5PM',available:true,emoji:'👩‍⚕️'},
+  ],
+  appointments: [],
+  reviews: [
+    {name:'Rajeshwari S.',avatar:'R',dept:'Cardiology',rating:5,text:'The team at BM Hospital was absolutely outstanding. Dr. Aravind explained everything clearly and the care I received post-procedure was exceptional. I feel like a new person!',date:'March 2025'},
+    {name:'Mohammed Farooq',avatar:'M',dept:'Orthopaedics',rating:5,text:'Came in for a knee replacement and the entire experience from consultation to discharge was seamless. Dr. Senthil Kumar is a true expert. Highly recommend this hospital!',date:'February 2025'},
+    {name:'Ananya Krishnamoorthy',avatar:'A',dept:'Paediatrics',rating:5,text:'My daughter was treated for a severe infection. The paediatrics team was so gentle and reassuring. Dr. Lalitha went above and beyond to make her comfortable.',date:'January 2025'},
+    {name:'Suresh Ramachandran',avatar:'S',dept:'Neurology',rating:5,text:'After years of headaches, Dr. Shalini Mohan finally identified the root cause. The diagnostic facilities here are world-class and the staff is incredibly caring.',date:'April 2025'},
+    {name:'Preethi Balamurugan',avatar:'P',dept:'Gynaecology',rating:5,text:'Delivered my baby here and could not have asked for a better experience. Dr. Revathi and the entire nursing team made the whole process so comfortable and safe.',date:'March 2025'},
+    {name:'Venkatesh Iyer',avatar:'V',dept:'Oncology',rating:5,text:'BM Hospital gave me hope when I needed it most. Dr. Kavitha\'s treatment plan was thorough and the support team helped me through every step of my cancer treatment.',date:'December 2024'},
+  ]
+};
+
+// ========== STATE ==========
+let cancelApptId = null;
+let lastBookedApptId = null;
+let chatOpen = false;
+let chatHistory = [];
+
+// ========== INIT ==========
+window.onload = () => {
+  setMinDate();
+  renderDepts();
+  renderDoctors();
+  renderReviews();
+  renderTopDoctors();
+  populateDeptSelect();
+  initChat();
+  renderAppointments();
+  document.getElementById('cancelReason').addEventListener('change', function() {
+    document.getElementById('otherReasonGroup').style.display = this.value === 'Other' ? 'block' : 'none';
+  });
+};
+
+function setMinDate() {
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('patDate').min = today;
+}
+
+// ========== THEME ==========
+
+// ---------------- THEME ----------------
+function toggleTheme() {
+  const html = document.documentElement;
+  const isDark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  document.getElementById('themeBtn').textContent = isDark ? '🌙' : '✦';
+}
+
+// ---------------- SCROLL ----------------
+function scrollTo(sel) {
+  document.querySelector(sel).scrollIntoView({ behavior: 'smooth' });
+}
+
+// ---------------- GLOBAL ----------------
+let doctorsData = [];
+let appointmentsData = [];
+let cancelId = null;
+
+let allDoctors = [];
+
+// 🔹 Load doctors from backend
+async function loadDoctors() {
+  try {
+    const res = await fetch("http://127.0.0.1:5000/doctors");
+    const data = await res.json();
+
+    allDoctors = data;
+
+    populateDepartments(data);
+  } catch (err) {
+    console.error("Error loading doctors:", err);
+  }
+}
+
+// 🔹 Fill department dropdown
+function populateDepartments(doctors) {
+  const deptSelect = document.getElementById("patDept");
+
+  const departments = [...new Set(doctors.map(d => d.department))];
+
+  departments.forEach(dept => {
+    const option = document.createElement("option");
+    option.value = dept;
+    option.textContent = dept;
+    deptSelect.appendChild(option);
+  });
+}
+
+// 🔹 Filter doctors based on department
+function filterDoctorsByDept() {
+  const selectedDept = document.getElementById("patDept").value;
+  const docSelect = document.getElementById("patDoc");
+
+  docSelect.innerHTML = '<option value="">Choose Doctor</option>';
+
+  const filtered = allDoctors.filter(d => d.department === selectedDept);
+
+  filtered.forEach(doc => {
+    const option = document.createElement("option");
+    option.value = doc.name;
+    option.textContent = doc.name;
+    docSelect.appendChild(option);
+  });
+}
+
+// 🔹 Run on page load
+window.onload = loadDoctors;
+</script>
+</body>

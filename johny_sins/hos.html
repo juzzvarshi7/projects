@@ -1,0 +1,110 @@
+<!-- KEEP YOUR ORIGINAL HTML + CSS ABOVE -->
+
+<!-- 🔥 REPLACE ONLY YOUR EXISTING <script> WITH THIS -->
+
+<script>
+let allDoctors = [];
+let allAppointments = [];
+let cxTargetId = null;
+
+// ================= LOAD DOCTORS =================
+async function loadDoctors(){
+  const res = await fetch("http://127.0.0.1:5000/doctors");
+  const data = await res.json();
+
+  allDoctors = data;
+
+  // recreate old structures
+  window.DEPTS = [...new Set(data.map(d=>d.department))];
+  window.DOCS = data.map(d=>({ name:d.name, dept:d.department }));
+
+  if(typeof renderDepts === "function") renderDepts();
+  if(typeof renderDocs === "function") renderDocs();
+  if(typeof populateForm === "function") populateForm();
+}
+
+// ================= LOAD APPOINTMENTS =================
+async function loadAppointments(){
+  const res = await fetch("http://127.0.0.1:5000/appointments");
+  const data = await res.json();
+
+  allAppointments = data;
+
+  window.APPTS = data.map(a=>({
+    id:a._id,
+    name:a.name,
+    phone:a.phone,
+    email:a.email,
+    gender:a.gender,
+    age:a.age,
+    dept:a.department,
+    doc:a.doctor,
+    date:a.date,
+    slot:a.slot,
+    reason:a.reason
+  }));
+
+  if(typeof renderAppointments === "function") renderAppointments();
+}
+
+// ================= BOOK =================
+async function handleBooking(e){
+  e.preventDefault();
+
+  const data = {
+    name:f("f-name"),
+    phone:f("f-phone"),
+    email:f("f-email"),
+    gender:f("f-gender"),
+    age:f("f-age"),
+    department:f("f-dept"),
+    doctor:f("f-doctor"),
+    date:f("f-date"),
+    slot:f("f-slot"),
+    reason:f("f-reason")
+  };
+
+  await fetch("http://127.0.0.1:5000/book",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify(data)
+  });
+
+  if(typeof showToast === "function") showToast("✅ Appointment booked");
+
+  document.getElementById("booking-form").reset();
+
+  loadAppointments();
+}
+
+// ================= CANCEL =================
+async function confirmCancel(){
+  if(!cxTargetId) return;
+
+  await fetch(`http://127.0.0.1:5000/cancel/${cxTargetId}`,{
+    method:"DELETE"
+  });
+
+  if(typeof closeCancel === "function") closeCancel();
+
+  loadAppointments();
+
+  if(typeof showToast === "function") showToast("❌ Appointment cancelled");
+
+  cxTargetId = null;
+}
+
+// ================= DISABLE OLD STORAGE =================
+function save(){}
+function dbSave(){}
+function dbUpdate(){}
+
+// ================= INIT =================
+window.addEventListener("DOMContentLoaded",()=>{
+  loadDoctors();
+  loadAppointments();
+});
+
+// ================= HELPER =================
+function f(id){ return document.getElementById(id).value }
+</script>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1024" height="1024" viewBox="0 0 1024 1024"
+     xmlns="http://www.w3.org/2000/svg">
+
+  <defs>
+    <linearGradient id="calBG" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1B6FE0"/>
+      <stop offset="100%" stop-color="#0A4B8C"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F2D278"/>
+      <stop offset="100%" stop-color="#DAA63D"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="64" y="128" width="896" height="832" rx="120" fill="url(#calBG)" />
+  <rect x="64" y="128" width="896" height="180" rx="120" fill="url(#goldGrad)" />
+  <g stroke="#FFFFFF" stroke-width="40" stroke-linecap="round">
+    <line x1="240" y1="128" x2="240" y2="260"/>
+    <line x1="480" y1="128" x2="480" y2="260"/>
+    <line x1="720" y1="128" x2="720" y2="260"/>
+  </g>
+  <circle cx="512" cy="540" r="220" fill="#FFFFFF" opacity="0.95"/>
+  <g transform="translate(512,540)">
+    <path d="M0,-130 C60,-60 60,20 0,90 C-60,20 -60,-60 0,-130Z"
+          fill="#C62828" opacity="0.85"/>
+    <circle cx="0" cy="80" r="40" fill="#F2B64B" />
+    <text x="0" y="22" text-anchor="middle"
+          font-family="Nunito Sans, sans-serif"
+          font-weight="700" font-size="96"
+          fill="#1B6FE0">
+      SJC
+    </text>
+  </g>
+  <g stroke="#FFFFFF" stroke-opacity="0.15" stroke-width="18">
+    <line x1="160" y1="680" x2="864" y2="680"/>
+    <line x1="160" y1="780" x2="864" y2="780"/>
+    <line x1="160" y1="880" x2="864" y2="880"/>
+    <line x1="280" y1="440" x2="280" y2="940"/>
+    <line x1="400" y1="440" x2="400" y2="940"/>
+    <line x1="520" y1="440" x2="520" y2="940"/>
+    <line x1="640" y1="440" x2="640" y2="940"/>
+    <line x1="760" y1="440" x2="760" y2="940"/>
+  </g>
+</svg>

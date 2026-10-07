@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BM Multi Speciality Hospital</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<style>
+/* ══ THEME VARIABLES ══ */
+:root{--teal:#0d9488;--teal-light:#14b8a6;--teal-dark:#0f766e;--teal-glow:rgba(13,148,136,0.35);--danger:#ef4444;--radius:18px}
+[data-theme="light"]{
+  --bg:linear-gradient(135deg,#f0fdfa 0%,#e0f2fe 50%,#f0fdf4 100%);
+  --bg-alt:#f0fdfa;--nav-bg:rgba(255,255,255,0.93);--card-bg:rgba(255,255,255,0.88);
+  --card-border:rgba(13,148,136,0.15);--shadow:0 8px 32px rgba(13,148,136,0.10);
+  --text-primary:#0f172a;--text-secondary:#1e293b;--text-muted:#64748b;
+  --mint:#ccfbf1;--mint-text:#0f766e;--input-bg:#ffffff;--input-border:rgba(13,148,136,0.2);
+  --footer-bg:#0f172a;--toggle-bg:#e2e8f0;
+  --chat-bg:#f8fafc;--chat-bot:#ffffff;--chat-bot-color:#0f172a;
+  --sc-bg:#dcfce7;--sc-text:#15803d;--sx-bg:#fee2e2;--sx-text:#991b1b;
+}
+[data-theme="dark"]{
+  --bg:linear-gradient(135deg,#020d0c 0%,#041a1a 40%,#050f12 100%);
+  --bg-alt:#041010;--nav-bg:rgba(4,18,18,0.96);--card-bg:rgba(8,28,28,0.88);
+  --card-border:rgba(13,148,136,0.28);--shadow:0 8px 32px rgba(0,0,0,0.45);
+  --text-primary:#e2faf8;--text-secondary:#a7f3d0;--text-muted:#6b9e98;
+  --mint:rgba(13,148,136,0.16);--mint-text:#5eead4;--input-bg:#0a1f1f;--input-border:rgba(13,148,136,0.38);
+  --footer-bg:#020a0a;--toggle-bg:#134e4a;
+  --chat-bg:#051212;--chat-bot:#0a2020;--chat-bot-color:#e2faf8;
+  --sc-bg:rgba(21,128,61,0.18);--sc-text:#4ade80;--sx-bg:rgba(153,27,27,0.18);--sx-text:#f87171;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-primary);min-height:100vh;overflow-x:hidden;transition:background 0.4s,color 0.3s}
+
+/* ── THEME TOGGLE ── */
+.theme-toggle{width:48px;height:27px;border-radius:50px;background:var(--toggle-bg);border:none;cursor:pointer;display:flex;align-items:center;padding:3px;transition:background 0.3s;flex-shrink:0}
+.theme-thumb{width:21px;height:21px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--teal-light));transition:transform 0.35s cubic-bezier(.34,1.56,.64,1);display:flex;align-items:center;justify-content:center;font-size:0.68rem}
+[data-theme="dark"] .theme-thumb{transform:translateX(21px)}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(24px);border-bottom:1px solid var(--card-border);padding:0 2rem;height:70px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 20px rgba(13,148,136,0.08);transition:background 0.4s,border-color 0.3s}
+.nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.nav-logo{width:44px;height:44px;background:linear-gradient(135deg,var(--teal),var(--teal-light));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:white;font-weight:700;box-shadow:0 4px 12px var(--teal-glow)}
+.nav-name{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--text-primary);line-height:1.2;transition:color 0.3s}
+.nav-tagline{font-size:0.62rem;color:var(--text-muted);letter-spacing:0.05em}
+.nav-links{display:flex;align-items:center;gap:1.8rem}
+.nav-links a{color:var(--text-secondary);text-decoration:none;font-size:0.88rem;font-weight:500;transition:color 0.2s}
+.nav-links a:hover{color:var(--teal)}
+.nav-right{display:flex;align-items:center;gap:0.9rem}
+.theme-label{font-size:0.75rem;font-weight:600;color:var(--text-muted);white-space:nowrap}
+.nav-cta{background:linear-gradient(135deg,var(--teal),var(--teal-light));color:white;border:none;padding:0.52rem 1.3rem;border-radius:50px;font-size:0.86rem;font-weight:600;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 12px var(--teal-glow)}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 6px 18px var(--teal-glow)}
+.emergency-bar{background:linear-gradient(90deg,var(--teal-dark),var(--teal));color:white;text-align:center;padding:0.45rem 1rem;font-size:0.82rem;font-weight:500;letter-spacing:0.02em;margin-top:70px}
+.emergency-bar a{color:#99f6e4;text-decoration:none;font-weight:700}
+
+/* ── HERO ── */
+.hero{padding:5rem 2rem 4rem;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--mint);color:var(--mint-text);padding:0.4rem 1rem;border-radius:50px;font-size:0.8rem;font-weight:600;margin-bottom:1.5rem;border:1px solid var(--card-border)}
+.hero-badge::before{content:'●';font-size:0.5rem;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,4vw,3.4rem);font-weight:700;line-height:1.15;color:var(--text-primary);margin-bottom:1.2rem;transition:color 0.3s}
+.hero h1 span{color:var(--teal)}
+.hero p{color:var(--text-muted);font-size:1.05rem;line-height:1.7;margin-bottom:2rem}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-primary{background:linear-gradient(135deg,var(--teal),var(--teal-light));color:white;border:none;padding:0.85rem 2rem;border-radius:50px;font-size:0.95rem;font-weight:600;cursor:pointer;transition:all 0.25s;box-shadow:0 6px 20px var(--teal-glow);text-decoration:none;display:inline-block}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 28px var(--teal-glow)}
+.btn-outline{background:transparent;color:var(--teal);border:2px solid var(--teal);padding:0.85rem 2rem;border-radius:50px;font-size:0.95rem;font-weight:600;cursor:pointer;transition:all 0.25s;text-decoration:none;display:inline-block}
+.btn-outline:hover{background:var(--teal);color:white}
+.hero-stats{display:flex;gap:2.5rem;margin-top:2.5rem}
+.stat-num{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--teal)}
+.stat-label{font-size:0.78rem;color:var(--text-muted);font-weight:500;margin-top:0.2rem}
+.hero-visual{border-radius:24px;background:linear-gradient(135deg,#0d9488,#14b8a6 50%,#06b6d4);padding:2.5rem 2rem;display:flex;flex-direction:column;gap:1rem;box-shadow:0 20px 60px rgba(13,148,136,0.35);min-height:360px;justify-content:center}
+.hero-card{background:rgba(255,255,255,0.15);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.25);border-radius:16px;padding:1.1rem 1.4rem;color:white}
+.hero-card-label{font-size:0.72rem;opacity:0.8;margin-bottom:0.4rem;text-transform:uppercase;letter-spacing:0.06em}
+.hero-card-title{font-size:0.98rem;font-weight:600;margin-bottom:0.25rem}
+.hero-card-sub{font-size:0.8rem;opacity:0.75}
+
+/* ── SECTIONS ── */
+section{padding:5rem 2rem;transition:background 0.4s}
+.section-container{max-width:1200px;margin:0 auto}
+.section-header{text-align:center;margin-bottom:3.5rem}
+.section-badge{display:inline-block;background:var(--mint);color:var(--mint-text);padding:0.3rem 1rem;border-radius:50px;font-size:0.78rem;font-weight:600;margin-bottom:1rem;letter-spacing:0.06em;text-transform:uppercase}
+.section-header h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:700;color:var(--text-primary);margin-bottom:0.8rem;transition:color 0.3s}
+.section-header p{color:var(--text-muted);font-size:1rem;max-width:520px;margin:0 auto}
+
+/* ── DEPTS ── */
+.dept-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:1.2rem}
+.dept-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);padding:1.8rem 1.4rem;text-align:center;transition:all 0.3s;cursor:pointer;backdrop-filter:blur(10px);box-shadow:var(--shadow)}
+.dept-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px var(--teal-glow);border-color:var(--teal)}
+.dept-icon{font-size:2.4rem;margin-bottom:0.8rem}
+.dept-name{font-weight:600;color:var(--text-primary);font-size:0.95rem;margin-bottom:0.3rem;transition:color 0.3s}
+.dept-count{font-size:0.78rem;color:var(--text-muted)}
+
+/* ── DOCTORS ── */
+.doctors-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:1.5rem}
+.doctor-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);padding:1.8rem;transition:all 0.3s;backdrop-filter:blur(10px);box-shadow:var(--shadow)}
+.doctor-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px var(--teal-glow)}
+.doc-header{display:flex;align-items:center;gap:1rem;margin-bottom:1rem}
+.doc-ava{width:62px;height:62px;border-radius:16px;background:linear-gradient(135deg,var(--teal),var(--teal-light));display:flex;align-items:center;justify-content:center;font-size:1.7rem;flex-shrink:0}
+.doc-info h3{font-weight:700;color:var(--text-primary);font-size:1rem;margin-bottom:0.2rem;transition:color 0.3s}
+.doc-spec{font-size:0.8rem;color:var(--teal);font-weight:600}
+.doc-dept{font-size:0.74rem;color:var(--text-muted);margin-top:0.15rem}
+.doc-qual{font-size:0.78rem;color:var(--text-muted);margin-bottom:0.9rem;line-height:1.5}
+.slots-label{font-size:0.73rem;font-weight:600;color:var(--text-secondary);margin-bottom:0.45rem;text-transform:uppercase;letter-spacing:0.05em}
+.slots-grid{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:0.9rem}
+.slot-chip{background:var(--mint);color:var(--mint-text);border:1px solid var(--card-border);padding:0.2rem 0.58rem;border-radius:6px;font-size:0.71rem;font-weight:500}
+.slot-chip.un{background:rgba(239,68,68,0.1);color:#ef4444;border-color:rgba(239,68,68,0.2);text-decoration:line-through}
+.avail-badge{display:inline-flex;align-items:center;gap:5px;font-size:0.74rem;font-weight:600;padding:0.25rem 0.7rem;border-radius:50px;margin-bottom:0.9rem}
+.avail-badge.yes{background:var(--sc-bg);color:var(--sc-text)}
+.avail-badge.no{background:rgba(245,158,11,0.12);color:#d97706}
+.book-btn{width:100%;background:linear-gradient(135deg,var(--teal),var(--teal-light));color:white;border:none;padding:0.72rem;border-radius:12px;font-weight:600;font-size:0.89rem;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 12px var(--teal-glow)}
+.book-btn:hover{transform:translateY(-1px);box-shadow:0 8px 20px var(--teal-glow)}
+
+/* ── BOOKING ── */
+.booking-wrapper{background:var(--card-bg);border:1px solid var(--card-border);border-radius:24px;padding:3rem;max-width:720px;margin:0 auto;box-shadow:0 12px 40px var(--teal-glow);backdrop-filter:blur(16px);transition:background 0.4s,border-color 0.3s}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.form-group{display:flex;flex-direction:column;gap:0.4rem}
+.form-group.full{grid-column:1/-1}
+.form-group label{font-size:0.81rem;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.05em;transition:color 0.3s}
+.form-group input,.form-group select,.form-group textarea{background:var(--input-bg);border:1.5px solid var(--input-border);border-radius:12px;padding:0.75rem 1rem;font-size:0.92rem;font-family:'DM Sans',sans-serif;color:var(--text-primary);transition:all 0.2s;outline:none}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(13,148,136,0.15)}
+.form-group textarea{resize:vertical;min-height:90px}
+.submit-btn{width:100%;background:linear-gradient(135deg,var(--teal),var(--teal-light));color:white;border:none;padding:1rem;border-radius:14px;font-size:1rem;font-weight:700;cursor:pointer;transition:all 0.25s;box-shadow:0 6px 20px var(--teal-glow);margin-top:0.5rem;letter-spacing:0.03em}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px var(--teal-glow)}
+
+/* ── APPOINTMENTS ── */
+.appt-list{display:flex;flex-direction:column;gap:1rem;max-width:960px;margin:0 auto}
+.appt-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);padding:1.5rem 2rem;display:flex;align-items:flex-start;justify-content:space-between;box-shadow:var(--shadow);backdrop-filter:blur(10px);transition:all 0.3s;gap:1rem}
+.appt-card:hover{transform:translateX(4px);border-color:var(--teal)}
+.appt-info{flex:1}
+.appt-name{font-weight:700;font-size:1.05rem;color:var(--text-primary);margin-bottom:0.3rem;transition:color 0.3s}
+.appt-meta{font-size:0.83rem;color:var(--text-muted);line-height:1.7}
+.appt-meta span{color:var(--teal);font-weight:600}
+.appt-id{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--text-muted);margin-top:0.3rem}
+.appt-actions{display:flex;gap:0.7rem;flex-shrink:0;align-items:flex-start}
+.appt-dl-btn{background:linear-gradient(135deg,var(--teal),var(--teal-light));color:white;border:none;padding:0.55rem 1.1rem;border-radius:10px;font-size:0.82rem;font-weight:600;cursor:pointer;transition:all 0.2s;box-shadow:0 3px 10px var(--teal-glow);white-space:nowrap}
+.appt-dl-btn:hover{transform:translateY(-1px);box-shadow:0 6px 16px var(--teal-glow)}
+.appt-cx-btn{background:var(--sx-bg);color:var(--danger);border:1.5px solid rgba(239,68,68,0.25);padding:0.55rem 1.1rem;border-radius:10px;font-size:0.82rem;font-weight:600;cursor:pointer;transition:all 0.2s;white-space:nowrap}
+.appt-cx-btn:hover{background:var(--danger);color:white;border-color:var(--danger)}
+.status-badge{padding:0.25rem 0.8rem;border-radius:50px;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;margin-top:0.5rem;display:inline-block}
+.st-ok{background:var(--sc-bg);color:var(--sc-text)}
+.st-cx{background:var(--sx-bg);color:var(--sx-text)}
+
+/* ── STEPS ── */
+.steps-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.5rem}
+.step-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);padding:2rem 1.5rem;text-align:center;box-shadow:var(--shadow);backdrop-filter:blur(10px);transition:all 0.3s}
+.step-card:hover{transform:translateY(-4px);border-color:var(--teal)}
+.step-num{width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,var(--teal),var(--teal-light));color:white;font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem}
+.step-card h3{font-weight:700;margin-bottom:0.5rem;color:var(--text-primary);transition:color 0.3s}
+.step-card p{color:var(--text-muted);font-size:0.85rem;line-height:1.6}
+
+/* ── CONTACT ── */
+.info-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.5rem}
+.info-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);padding:2rem;text-align:center;box-shadow:var(--shadow);backdrop-filter:blur(10px);transition:all 0.3s}
+.info-card:hover{transform:translateY(-4px);border-color:var(--teal)}
+.info-icon{font-size:2.2rem;margin-bottom:1rem}
+.info-title{font-weight:700;color:var(--text-primary);margin-bottom:0.5rem;transition:color 0.3s}
+.info-text{color:var(--text-muted);font-size:0.88rem;line-height:1.6}
+.info-text a{color:var(--teal);text-decoration:none;font-weight:600}
+
+/* ── FOOTER ── */
+footer{background:var(--footer-bg);color:rgba(255,255,255,0.65);padding:3rem 2rem;text-align:center;transition:background 0.4s}
+footer .ft-logo{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:white;margin-bottom:0.5rem}
+footer p{font-size:0.85rem}
+.ft-links{display:flex;justify-content:center;gap:2rem;margin:1.5rem 0;flex-wrap:wrap}
+.ft-links a{color:rgba(255,255,255,0.5);text-decoration:none;font-size:0.85rem;transition:color 0.2s}
+.ft-links a:hover{color:var(--teal-light)}
+
+/* ── MODALS ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(2,10,10,0.72);backdrop-filter:blur(8px);z-index:1000;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;pointer-events:none;transition:opacity 0.3s}
+.modal-overlay.active{opacity:1;pointer-events:all}
+.modal{background:var(--card-bg);border:1px solid var(--card-border);border-radius:24px;padding:2.5rem;max-width:500px;width:100%;box-shadow:0 24px 60px rgba(0,0,0,0.4);transform:translateY(20px);transition:transform 0.3s,background 0.4s;backdrop-filter:blur(20px)}
+.modal-overlay.active .modal{transform:translateY(0)}
+.modal h3{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;margin-bottom:0.5rem;color:var(--text-primary)}
+.modal p{color:var(--text-muted);font-size:0.9rem;margin-bottom:1.5rem;line-height:1.6}
+.modal-actions{display:flex;gap:0.8rem;margin-top:1.5rem}
+.btn-danger{background:linear-gradient(135deg,#ef4444,#dc2626);color:white;border:none;padding:0.75rem 1.5rem;border-radius:12px;font-weight:700;cursor:pointer;flex:1;font-size:0.9rem;transition:all 0.2s}
+.btn-danger:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(239,68,68,0.4)}
+.btn-back{background:var(--mint);color:var(--mint-text);border:none;padding:0.75rem 1.5rem;border-radius:12px;font-weight:600;cursor:pointer;flex:1;font-size:0.9rem}
+.m-select,.m-textarea{background:var(--input-bg);border:1.5px solid var(--input-border);border-radius:12px;padding:0.75rem 1rem;font-size:0.92rem;font-family:'DM Sans',sans-serif;color:var(--text-primary);outline:none;width:100%;transition:all 0.2s;margin-bottom:0.8rem}
+.m-select:focus,.m-textarea:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(13,148,136,0.15)}
+.m-textarea{resize:vertical;min-height:80px;margin-bottom:0}
+
+/* ── MISMATCH POPUP ── */
+.popup-overlay{position:fixed;inset:0;background:rgba(2,8,8,0.72);backdrop-filter:blur(10px);z-index:1500;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;pointer-events:none;transition:opacity 0.3s}
+.popup-overlay.active{opacity:1;pointer-events:all}
+.popup-box{background:var(--card-bg);border:2px solid rgba(245,158,11,0.35);border-radius:26px;padding:2.8rem 2.5rem;max-width:460px;width:100%;box-shadow:0 24px 60px rgba(0,0,0,0.5);text-align:center;transform:scale(0.88) translateY(14px);transition:transform 0.38s cubic-bezier(.34,1.56,.64,1),background 0.4s;backdrop-filter:blur(20px)}
+.popup-overlay.active .popup-box{transform:scale(1) translateY(0)}
+.popup-icon{font-size:3.8rem;margin-bottom:1rem;display:block;animation:wobble 0.6s ease}
+@keyframes wobble{0%,100%{transform:rotate(0)}20%{transform:rotate(-8deg)}40%{transform:rotate(8deg)}60%{transform:rotate(-5deg)}80%{transform:rotate(4deg)}}
+.popup-box h3{font-family:'Playfair Display',serif;font-size:1.45rem;color:var(--text-primary);margin-bottom:0.7rem;font-weight:700}
+.popup-box p{color:var(--text-muted);font-size:0.9rem;line-height:1.65;margin-bottom:1.4rem}
+.popup-hl{background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);border-radius:12px;padding:0.9rem 1.2rem;margin-bottom:1.5rem;font-size:0.85rem;color:var(--text-primary);line-height:1.7;text-align:left}
+.popup-hl strong{color:#d97706}
+.popup-btn{background:linear-gradient(135deg,var(--teal),var(--teal-light));color:white;border:none;padding:0.85rem 2.2rem;border-radius:14px;font-weight:700;cursor:pointer;font-size:0.95rem;box-shadow:0 6px 18px var(--teal-glow);transition:all 0.2s}
+.popup-btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px var(--teal-glow)}
+
+/* ── TOAST ── */
+.toast{position:fixed;top:5rem;right:1.5rem;z-index:2000;background:var(--card-bg);border:1px solid var(--card-border);border-radius:14px;padding:1rem 1.5rem;box-shadow:0 8px 30px rgba(0,0,0,0.2);border-left:4px solid var(--teal);transform:translateX(120%);transition:transform 0.4s cubic-bezier(.34,1.56,.64,1);max-width:340px;font-size:0.9rem;font-weight:500;color:var(--text-primary);backdrop-filter:blur(16px)}
+.toast.show{transform:translateX(0)}
+.toast.err{border-left-color:var(--danger)}
+
+/* ── CHATBOT ── */
+.chatbot-fab{position:fixed;bottom:2rem;right:2rem;z-index:500;width:62px;height:62px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--teal-light));border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.6rem;box-shadow:0 8px 24px var(--teal-glow);transition:all 0.3s}
+.chatbot-fab:hover{transform:scale(1.1);box-shadow:0 12px 32px var(--teal-glow)}
+.chatbot-window{position:fixed;bottom:6.5rem;right:2rem;z-index:500;width:360px;height:490px;background:var(--nav-bg);border:1px solid var(--card-border);border-radius:22px;box-shadow:0 20px 60px rgba(0,0,0,0.3);display:flex;flex-direction:column;overflow:hidden;transform:scale(0.85) translateY(20px);transform-origin:bottom right;opacity:0;pointer-events:none;transition:all 0.3s cubic-bezier(.34,1.56,.64,1);backdrop-filter:blur(20px)}
+.chatbot-window.open{transform:scale(1) translateY(0);opacity:1;pointer-events:all}
+.chat-header{background:linear-gradient(135deg,var(--teal),var(--teal-light));padding:1.1rem 1.4rem;color:white;display:flex;align-items:center;gap:0.8rem}
+.chat-hava{width:38px;height:38px;background:rgba(255,255,255,0.25);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.3rem}
+.chat-hinfo h4{font-weight:700;font-size:0.95rem}
+.chat-hinfo p{font-size:0.72rem;opacity:0.85}
+.chat-online{display:flex;align-items:center;gap:5px;font-size:0.7rem;opacity:0.9;margin-top:2px}
+.chat-online::before{content:'';width:7px;height:7px;background:#86efac;border-radius:50%}
+.chat-close{margin-left:auto;background:none;border:none;color:white;cursor:pointer;font-size:1.3rem;opacity:0.8}
+.chat-body{flex:1;overflow-y:auto;padding:1.2rem;display:flex;flex-direction:column;gap:0.8rem;background:var(--chat-bg);transition:background 0.4s}
+.chat-bubble{max-width:83%;padding:0.7rem 1rem;border-radius:16px;font-size:0.85rem;line-height:1.55;word-break:break-word}
+.chat-bubble.bot{background:var(--chat-bot);color:var(--chat-bot-color);border:1px solid var(--card-border);border-bottom-left-radius:4px;align-self:flex-start;box-shadow:0 2px 8px rgba(0,0,0,0.08)}
+.chat-bubble.usr{background:linear-gradient(135deg,var(--teal),var(--teal-light));color:white;border-bottom-right-radius:4px;align-self:flex-end}
+.chat-sugs{display:flex;flex-wrap:wrap;gap:0.4rem;padding:0.5rem 1rem;background:var(--chat-bg);transition:background 0.4s}
+.chat-sug{background:var(--mint);color:var(--mint-text);border:1px solid var(--card-border);padding:0.35rem 0.8rem;border-radius:50px;font-size:0.75rem;font-weight:600;cursor:pointer;transition:all 0.2s}
+.chat-sug:hover{background:var(--teal);color:white}
+.chat-irow{display:flex;gap:0.5rem;padding:0.9rem 1rem;background:var(--nav-bg);border-top:1px solid var(--card-border);transition:background 0.4s}
+.chat-input{flex:1;background:var(--input-bg);border:1px solid var(--input-border);border-radius:50px;padding:0.6rem 1rem;font-size:0.85rem;font-family:'DM Sans',sans-serif;outline:none;color:var(--text-primary);transition:background 0.3s,color 0.3s}
+.chat-send{background:linear-gradient(135deg,var(--teal),var(--teal-light));border:none;border-radius:50%;width:36px;height:36px;color:white;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:transform 0.2s;flex-shrink:0}
+.chat-send:hover{transform:scale(1.1)}
+.chat-body::-webkit-scrollbar{width:4px}
+.chat-body::-webkit-scrollbar-thumb{background:var(--card-border);border-radius:4px}
+.typing{display:flex;gap:4px;align-items:center}
+.typing span{width:7px;height:7px;background:var(--text-muted);border-radius:50%;animation:bounce 1.2s infinite}
+.typing span:nth-child(2){animation-delay:0.2s}
+.typing span:nth-child(3){animation-delay:0.4s}
+@keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+
+
+/* ── DOCTOR PORTAL ── */
+.dp-overlay{position:fixed;inset:0;background:rgba(2,10,10,0.82);backdrop-filter:blur(10px);z-index:1200;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;pointer-events:none;transition:opacity 0.3s}
+.dp-overlay.active{opacity:1;pointer-events:all}
+.dp-modal{background:var(--card-bg);border:1px solid var(--card-border);border-radius:24px;padding:2.5rem;max-width:580px;width:100%;box-shadow:0 24px 60px rgba(0,0,0,0.5);backdrop-filter:blur(20px);max-height:88vh;overflow-y:auto;transition:background 0.4s}
+.dp-modal h3{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;color:var(--text-primary);margin-bottom:0.4rem}
+.dp-modal>div>p{color:var(--text-muted);font-size:0.88rem;margin-bottom:1.4rem}
+.dp-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.2rem}
+.dp-close{background:none;border:none;color:var(--text-muted);font-size:1.3rem;cursor:pointer;padding:0.2rem 0.5rem;border-radius:8px;transition:background 0.2s}
+.dp-close:hover{background:var(--mint)}
+.dp-login{display:flex;flex-direction:column;gap:0.9rem}
+.dp-appt-card{background:var(--bg-alt);border:1px solid var(--card-border);border-radius:14px;padding:1.1rem 1.4rem;margin-bottom:0.8rem;display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;transition:background 0.3s}
+.dp-appt-info{flex:1;font-size:0.84rem;color:var(--text-secondary);line-height:1.8}
+.dp-appt-info strong{color:var(--text-primary);font-size:0.95rem}
+.dp-cx-btn{background:linear-gradient(135deg,#ef4444,#dc2626);color:white;border:none;padding:0.5rem 1rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:all 0.2s}
+.dp-cx-btn:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(239,68,68,0.45)}
+.dp-empty{text-align:center;color:var(--text-muted);padding:2rem 1rem;font-size:0.9rem}
+.dp-doc-name{font-size:0.95rem;font-weight:700;color:var(--teal);margin-bottom:0.25rem}
+.email-note{background:var(--mint);color:var(--mint-text);border-radius:10px;padding:0.7rem 1rem;font-size:0.8rem;margin-bottom:1.1rem;border:1px solid var(--card-border);line-height:1.5}
+.db-status{position:fixed;bottom:1rem;left:1.5rem;background:var(--card-bg);border:1px solid var(--card-border);border-radius:10px;padding:0.4rem 0.9rem;font-size:0.74rem;color:var(--text-muted);z-index:100;transition:opacity 1s}
+.db-status.ok{border-color:var(--teal);color:var(--teal)}
+@media(max-width:900px){.dp-modal{padding:1.5rem 1rem;max-height:95vh}}
+
+
+/* ── EMAILJS SETTINGS MODAL ── */
+.ejs-overlay{position:fixed;inset:0;background:rgba(2,10,10,0.82);backdrop-filter:blur(10px);z-index:1300;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;pointer-events:none;transition:opacity 0.3s}
+.ejs-overlay.active{opacity:1;pointer-events:all}
+.ejs-modal{background:var(--card-bg);border:1px solid var(--card-border);border-radius:24px;padding:2.5rem;max-width:560px;width:100%;box-shadow:0 24px 60px rgba(0,0,0,0.5);backdrop-filter:blur(20px);max-height:90vh;overflow-y:auto;transition:background 0.4s}
+.ejs-modal h3{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--text-primary);margin-bottom:0.3rem}
+.ejs-step{background:var(--bg-alt);border:1px solid var(--card-border);border-radius:12px;padding:1rem 1.2rem;margin-bottom:0.9rem;font-size:0.84rem;color:var(--text-secondary);line-height:1.8}
+.ejs-step strong{color:var(--text-primary)}
+.ejs-step a{color:var(--teal);font-weight:600;text-decoration:none}
+.ejs-step a:hover{text-decoration:underline}
+.ejs-step code{background:var(--mint);color:var(--mint-text);padding:0.15rem 0.45rem;border-radius:5px;font-family:'JetBrains Mono',monospace;font-size:0.82rem}
+.step-num-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--teal);color:white;font-size:0.72rem;font-weight:700;margin-right:6px;flex-shrink:0}
+.ejs-input-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-bottom:0.8rem}
+@media(max-width:600px){.ejs-input-row{grid-template-columns:1fr}}
+.ejs-status{padding:0.5rem 0.9rem;border-radius:8px;font-size:0.8rem;font-weight:600;margin-bottom:1rem;text-align:center}
+.ejs-status.configured{background:var(--sc-bg);color:var(--sc-text)}
+.ejs-status.not-configured{background:var(--sx-bg);color:var(--sx-text)}
+.ejs-tab-btn{background:var(--bg-alt);border:1.5px solid var(--card-border);border-radius:8px;padding:0.45rem 1rem;font-size:0.82rem;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all 0.2s}
+.ejs-tab-btn.active{background:var(--teal);color:white;border-color:var(--teal)}
+.ejs-tab-btn:hover:not(.active){border-color:var(--teal);color:var(--teal)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;gap:2rem;padding:3rem 1.2rem}
+  .hero-visual{display:none}
+  .form-grid{grid-template-columns:1fr}
+  .nav-links{display:none}
+  .booking-wrapper{padding:1.8rem 1.2rem}
+  .appt-card{flex-direction:column}
+  .appt-actions{width:100%}
+  .chatbot-window{width:calc(100vw - 2rem);right:1rem}
+  .hero-stats{gap:1.5rem}
+  .theme-label{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="emergency-bar">
+  🚑 24/7 Emergency: <a href="tel:+911800222555">+91 1800-222-555</a> &nbsp;|&nbsp;
+  📞 Appointments: <a href="tel:+914426001234">+91 44-2600-1234</a> &nbsp;|&nbsp;
+  📱 WhatsApp: <a href="tel:+919876543210">+91 98765-43210</a>
+</div>
+
+<nav>
+  <a class="nav-brand" href="#">
+    <div class="nav-logo">BM</div>
+    <div>
+      <div class="nav-name">BM Multi Speciality Hospital</div>
+      <div class="nav-tagline">Excellence in Healthcare Since 1998</div>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="#departments">Departments</a>
+    <a href="#doctors">Doctors</a>
+    <a href="#how-it-works">How It Works</a>
+    <a href="#appointments">My Appointments</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="nav-right">
+    <span class="theme-label" id="theme-label">Dark Mode</span>
+    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+      <div class="theme-thumb" id="toggle-thumb">🌙</div>
+    </button>
+    <button class="nav-cta" style="margin-right:0.4rem;background:linear-gradient(135deg,#7c3aed,#a855f7)" onclick="openDoctorPortal()">🩺 Doctor Login</button>
+    <button class="nav-cta" style="margin-right:0.4rem;background:linear-gradient(135deg,#b45309,#d97706)" onclick="openEJSSettings()" title="Configure Email Notifications">📧 Email Setup</button>
+    <button class="nav-cta" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">Book Now</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div>
+    <div class="hero-badge">🏥 NABH Accredited Hospital</div>
+    <h1>Advanced Care,<br><span>Closer to You</span></h1>
+    <p>BM Multi Speciality Hospital offers world-class medical care across 20+ specialities. Book your consultation in seconds — our expert doctors are here for you.</p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">📅 Book Appointment</button>
+      <a class="btn-outline" href="#departments">Explore Departments</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-num">25+</div><div class="stat-label">Years of Trust</div></div>
+      <div><div class="stat-num">80+</div><div class="stat-label">Expert Doctors</div></div>
+      <div><div class="stat-num">500K+</div><div class="stat-label">Patients Served</div></div>
+      <div><div class="stat-num">24/7</div><div class="stat-label">Emergency</div></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-card"><div style="display:flex;align-items:center;gap:10px"><div style="width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,0.25);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48"><circle cx="24" cy="24" r="24" fill="rgba(255,255,255,0.2)"/><circle cx="24" cy="18" r="8" fill="rgba(255,255,255,0.9)"/><ellipse cx="24" cy="38" rx="12" ry="8" fill="rgba(255,255,255,0.9)"/><rect x="20" y="26" width="8" height="5" rx="1" fill="rgba(255,255,255,0.9)"/><rect x="17" y="29" width="14" height="2" rx="1" fill="#0d9488"/><circle cx="24" cy="32" r="1.5" fill="#0d9488"/><line x1="24" y1="30.5" x2="24" y2="33.5" stroke="#0d9488" stroke-width="1.2"/><line x1="22.5" y1="32" x2="25.5" y2="32" stroke="#0d9488" stroke-width="1.2"/></svg></div><div><div style="font-weight:700;font-size:0.95rem">Dr. Ramesh Kumar</div><div style="font-size:0.78rem;opacity:0.8">Cardiologist · Available Today</div></div></div></div>
+    <div class="hero-card"><div class="hero-card-label">Next Available Slot</div><div class="hero-card-title">Today · 10:30 AM</div><div class="hero-card-sub">Consultation · 30 min</div></div>
+    <div class="hero-card"><div style="display:flex;justify-content:space-between;align-items:center"><div><div class="hero-card-label">Appointment Confirmed</div><div class="hero-card-title">✅ Booking #BM-20240</div></div><div style="font-size:2rem">🎉</div></div></div>
+    <div class="hero-card"><div class="hero-card-label">Emergency Response</div><div class="hero-card-title">⚡ Under 5 Minutes</div><div class="hero-card-sub">24/7 · 365 days</div></div>
+  </div>
+</div>
+
+<section id="departments">
+  <div class="section-container">
+    <div class="section-header">
+      <div class="section-badge">Our Specialities</div>
+      <h2>World-Class Departments</h2>
+      <p>Comprehensive healthcare under one roof with cutting-edge technology and expert physicians.</p>
+    </div>
+    <div class="dept-grid" id="dept-grid"></div>
+  </div>
+</section>
+
+<section id="how-it-works" style="background:var(--bg-alt)">
+  <div class="section-container">
+    <div class="section-header">
+      <div class="section-badge">Process</div>
+      <h2>How It Works</h2>
+      <p>Booking your appointment is simple, fast, and completely hassle-free.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card"><div class="step-num">1</div><h3>Choose Department</h3><p>Select from 20+ specialities tailored to your health needs.</p></div>
+      <div class="step-card"><div class="step-num">2</div><h3>Select Doctor</h3><p>Browse qualified specialists, their experience, and real-time availability.</p></div>
+      <div class="step-card"><div class="step-num">3</div><h3>Pick a Slot</h3><p>Choose a convenient date and time from available appointment slots.</p></div>
+      <div class="step-card"><div class="step-num">4</div><h3>Get Confirmed</h3><p>Receive instant confirmation and download your appointment PDF receipt.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="doctors">
+  <div class="section-container">
+    <div class="section-header">
+      <div class="section-badge">Our Team</div>
+      <h2>Meet Our Specialists</h2>
+      <p>Highly qualified doctors dedicated to delivering the best patient care.</p>
+    </div>
+    <div class="doctors-grid" id="doctors-grid"></div>
+  </div>
+</section>
+
+<section id="booking" style="background:var(--bg-alt)">
+  <div class="section-container">
+    <div class="section-header">
+      <div class="section-badge">Book Now</div>
+      <h2>Schedule Your Visit</h2>
+      <p>Fill in your details and we'll confirm your appointment instantly.</p>
+    </div>
+    <div class="booking-wrapper">
+      <form id="booking-form" onsubmit="handleBooking(event)">
+        <div class="form-grid">
+          <div class="form-group full"><label>Full Name *</label><input type="text" id="f-name" placeholder="Your full name" required></div>
+          <div class="form-group"><label>Mobile Number *</label><input type="tel" id="f-phone" placeholder="+91 XXXXX XXXXX" required pattern="[0-9+\s\-]{7,15}"></div>
+          <div class="form-group"><label>Email</label><input type="email" id="f-email" placeholder="your@email.com"></div>
+          <div class="form-group"><label>Gender *</label><select id="f-gender" required><option value="">Select Gender</option><option>Male</option><option>Female</option><option>Other</option><option>Prefer not to say</option></select></div>
+          <div class="form-group"><label>Age *</label><input type="number" id="f-age" placeholder="Age in years" min="1" max="120" required></div>
+          <div class="form-group"><label>Department *</label><select id="f-dept" required onchange="updateDocDropdown()"><option value="">Select Department</option></select></div>
+          <div class="form-group"><label>Doctor *</label><select id="f-doctor" required onchange="validateMatch()"><option value="">Select Doctor</option></select></div>
+          <div class="form-group"><label>Preferred Date *</label><input type="date" id="f-date" required></div>
+          <div class="form-group"><label>Time Slot *</label><select id="f-slot" required><option value="">Select Slot</option><option>09:00 AM</option><option>09:30 AM</option><option>10:00 AM</option><option>10:30 AM</option><option>11:00 AM</option><option>11:30 AM</option><option>12:00 PM</option><option>02:00 PM</option><option>02:30 PM</option><option>03:00 PM</option><option>03:30 PM</option><option>04:00 PM</option><option>04:30 PM</option><option>05:00 PM</option></select></div>
+          <div class="form-group full"><label>Reason / Symptoms</label><textarea id="f-reason" placeholder="Describe your symptoms or reason for visit..."></textarea></div>
+        </div>
+        <button type="submit" class="submit-btn">📅 Confirm Appointment</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section id="appointments">
+  <div class="section-container">
+    <div class="section-header">
+      <div class="section-badge">My Bookings</div>
+      <h2>Your Appointments</h2>
+      <p>View, download, or manage your upcoming and past appointments.</p>
+    </div>
+    <div class="appt-list" id="appt-list"><p style="text-align:center;color:var(--text-muted);font-size:0.95rem;padding:3rem">No appointments yet. Book your first consultation above! 🩺</p></div>
+  </div>
+</section>
+
+<section id="contact" style="background:var(--bg-alt)">
+  <div class="section-container">
+    <div class="section-header">
+      <div class="section-badge">Get In Touch</div>
+      <h2>Contact &amp; Location</h2>
+      <p>We're always here to help — anytime, any day.</p>
+    </div>
+    <div class="info-grid">
+      <div class="info-card"><div class="info-icon">📍</div><div class="info-title">Address</div><div class="info-text">42, Anna Salai, Near Gemini Flyover,<br>Chennai – 600 002, Tamil Nadu</div></div>
+      <div class="info-card"><div class="info-icon">📞</div><div class="info-title">Phone Numbers</div><div class="info-text">Main: <a href="tel:+914426001234">+91 44-2600-1234</a><br>Emergency: <a href="tel:+911800222555">1800-222-555</a><br>WhatsApp: <a href="tel:+919876543210">+91 98765-43210</a></div></div>
+      <div class="info-card"><div class="info-icon">🕐</div><div class="info-title">OPD Hours</div><div class="info-text">Mon – Sat: 8 AM – 8 PM<br>Sunday: 9 AM – 2 PM<br>Emergency: 24 / 7 / 365</div></div>
+      <div class="info-card"><div class="info-icon">✉️</div><div class="info-title">Email</div><div class="info-text"><a href="/cdn-cgi/l/email-protection#294859594640475d444c475d5a694b44445a41074047"><span class="__cf_email__" data-cfemail="127362627d7b7c667f777c666152707f7f617a3c7b7c">[email&#160;protected]</span></a><br><a href="/cdn-cgi/l/email-protection#167f78707956747b7b657e387f78"><span class="__cf_email__" data-cfemail="7e171018113e1c13130d16501710">[email&#160;protected]</span></a></div></div>
+    </div>
+  </div>
+</section>
+
+
+<footer>
+  <div class="ft-logo">BM Multi Speciality Hospital</div>
+  <p>Excellence in Healthcare Since 1998 · NABH Accredited</p>
+  <div class="ft-links">
+    <a href="#">Privacy Policy</a><a href="#">Terms of Service</a>
+    <a href="#">Patient Rights</a><a href="#">Careers</a><a href="#">Media</a>
+  </div>
+  <p>© 2024 BM Multi Speciality Hospital. All rights reserved.</p>
+</footer>
+
+<!-- CHATBOT -->
+<button class="chatbot-fab" onclick="toggleChat()" title="Chat with us">💬</button>
+<div class="chatbot-window" id="chatbot">
+  <div class="chat-header">
+    <div class="chat-hava">🤖</div>
+    <div class="chat-hinfo"><h4>BM HealthBot</h4><p>Your virtual assistant</p><div class="chat-online">Online Now</div></div>
+    <button class="chat-close" onclick="toggleChat()">✕</button>
+  </div>
+  <div class="chat-body" id="chat-body"></div>
+  <div class="chat-sugs" id="chat-sugs"></div>
+  <div class="chat-irow">
+    <input class="chat-input" id="chat-input" placeholder="Type your message..." onkeydown="if(event.key==='Enter')sendChat()">
+    <button class="chat-send" onclick="sendChat()">➤</button>
+  </div>
+</div>
+
+<!-- CANCEL MODAL -->
+<div class="modal-overlay" id="cancel-modal">
+  <div class="modal">
+    <h3>❌ Cancel Appointment</h3>
+    <p>Please let us know why you're cancelling. A cancellation receipt will be generated for your records.</p>
+    <label style="font-size:0.81rem;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.05em;display:block;margin-bottom:0.5rem">Reason *</label>
+    <select id="cx-reason-sel" class="m-select">
+      <option value="">Select a reason</option>
+      <option>Schedule conflict</option>
+      <option>Feeling better / recovered</option>
+      <option>Appointment at another hospital</option>
+      <option>Financial reasons</option>
+      <option>Doctor unavailability</option>
+      <option>Personal emergency</option>
+      <option>Transportation issue</option>
+      <option>Other</option>
+    </select>
+    <textarea id="cx-reason-txt" class="m-textarea" placeholder="Additional details (optional)..."></textarea>
+    <div class="modal-actions">
+      <button class="btn-back" onclick="closeCancel()">Go Back</button>
+      <button class="btn-danger" onclick="confirmCancel()">Confirm Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- MISMATCH POPUP -->
+<div class="popup-overlay" id="mismatch-popup">
+  <div class="popup-box">
+    <span class="popup-icon">⚠️</span>
+    <h3>Wrong Field Selected!</h3>
+    <p>The doctor and department you selected do not match. Please correct your selection to proceed.</p>
+    <div class="popup-hl" id="mismatch-detail"></div>
+    <button class="popup-btn" onclick="closeMismatch()">✔ Got It — Fix Now</button>
+  </div>
+</div>
+
+<!-- EMAILJS SETTINGS MODAL -->
+<div class="ejs-overlay" id="ejs-settings-overlay">
+  <div class="ejs-modal">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem">
+      <div>
+        <h3>📧 Email Notification Setup</h3>
+        <p style="color:var(--text-muted);font-size:0.85rem;margin-top:0.2rem">Configure Gmail alerts for doctors &amp; patients via EmailJS (free)</p>
+      </div>
+      <button class="dp-close" onclick="closeEJSSettings()">✕</button>
+    </div>
+
+    <!-- Live status -->
+    <div id="ejs-live-status" class="ejs-status not-configured">⚠️ Not configured – emails will not be sent</div>
+
+    <!-- Step by step guide -->
+    <div style="margin-bottom:1.2rem">
+      <div style="font-size:0.78rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.6rem">📋 Setup Guide (5 minutes, free)</div>
+
+      <div class="ejs-step">
+        <span class="step-num-badge">1</span><strong>Create a free EmailJS account</strong><br>
+        Go to <a href="https://www.emailjs.com" target="_blank">www.emailjs.com</a> → Click <strong>Sign Up Free</strong> → Verify your Gmail.
+      </div>
+
+      <div class="ejs-step">
+        <span class="step-num-badge">2</span><strong>Add Gmail as an Email Service</strong><br>
+        Dashboard → <strong>Email Services</strong> → <strong>Add New Service</strong> → Choose <strong>Gmail</strong> → Connect your account → Click <strong>Create Service</strong>.<br>
+        Copy the <strong>Service ID</strong> (e.g. <code>service_abc123</code>) and paste it below.
+      </div>
+
+      <div class="ejs-step">
+        <span class="step-num-badge">3</span><strong>Create Template 1 – Doctor Booking Notification</strong><br>
+        Dashboard → <strong>Email Templates</strong> → <strong>Create New Template</strong><br>
+        <strong>Subject:</strong> New Appointment – {{patient_name}} on {{date}}<br>
+        <strong>Body:</strong><br>
+        Dear {{doctor_name}},<br>
+        Patient: {{patient_name}} | Phone: {{patient_phone}}<br>
+        Date: {{date}} at {{slot}} | Dept: {{dept}}<br>
+        Reason: {{reason}} | ID: {{booking_id}}<br>
+        Set <strong>To Email</strong> field to: <code>{{doctor_email}}</code><br>
+        Save → copy the <strong>Template ID</strong> (e.g. <code>template_abc123</code>).
+      </div>
+
+      <div class="ejs-step">
+        <span class="step-num-badge">4</span><strong>Create Template 2 – Patient Cancellation Notification</strong><br>
+        Create another template:<br>
+        <strong>Subject:</strong> Appointment Cancelled – {{booking_id}}<br>
+        <strong>Body:</strong><br>
+        Dear {{patient_name}},<br>
+        Your appointment with {{doctor_name}} ({{dept}}) on {{date}} at {{slot}} has been cancelled.<br>
+        Reason: {{cancel_reason}} | Cancelled on: {{cancel_on}}<br>
+        Please call +91 44-2600-1234 to reschedule.<br>
+        Set <strong>To Email</strong> field to: <code>{{patient_email}}</code><br>
+        Save → copy the <strong>Template ID</strong>.
+      </div>
+
+      <div class="ejs-step">
+        <span class="step-num-badge">5</span><strong>Get your Public Key</strong><br>
+        Dashboard → top-right menu → <strong>Account</strong> → <strong>API Keys</strong> tab → copy <strong>Public Key</strong>.
+      </div>
+    </div>
+
+    <!-- Tab buttons -->
+    <div style="display:flex;gap:0.5rem;margin-bottom:1.2rem;border-bottom:1.5px solid var(--card-border);padding-bottom:0.8rem">
+      <button id="ejs-tab-btn-creds" class="ejs-tab-btn active" onclick="openCredsTab()">🔑 EmailJS Credentials</button>
+      <button id="ejs-tab-btn-emails" class="ejs-tab-btn" onclick="openDocEmailsTab()">👨‍⚕️ Doctor Gmail Addresses</button>
+    </div>
+
+    <!-- TAB 1: Credentials -->
+    <div id="ejs-tab-creds">
+      <div style="font-size:0.78rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.6rem">🔑 Enter Your Credentials</div>
+      <div class="ejs-input-row">
+        <div class="form-group" style="margin:0">
+          <label>Public Key</label>
+          <input type="text" id="ejs-pub" class="m-select" style="margin:0" placeholder="e.g. AbcDef_ghijkl123">
+        </div>
+        <div class="form-group" style="margin:0">
+          <label>Service ID</label>
+          <input type="text" id="ejs-svc" class="m-select" style="margin:0" placeholder="e.g. service_abc123">
+        </div>
+        <div class="form-group" style="margin:0">
+          <label>Template ID – Doctor</label>
+          <input type="text" id="ejs-tpl-d" class="m-select" style="margin:0" placeholder="e.g. template_doctor1">
+        </div>
+        <div class="form-group" style="margin:0">
+          <label>Template ID – Patient</label>
+          <input type="text" id="ejs-tpl-p" class="m-select" style="margin:0" placeholder="e.g. template_patient1">
+        </div>
+      </div>
+      <div class="modal-actions" style="margin-top:1rem">
+        <button class="btn-back" onclick="testEJSSettings()">🧪 Send Test Email</button>
+        <button class="btn-primary" onclick="saveEJSSettings()" style="flex:1;border-radius:12px;padding:0.75rem;font-size:0.9rem">💾 Save &amp; Activate</button>
+      </div>
+      <p style="text-align:center;color:var(--text-muted);font-size:0.76rem;margin-top:0.8rem">Credentials are saved in your browser's localStorage — never sent anywhere else.</p>
+    </div>
+
+    <!-- TAB 2: Doctor Gmail Addresses -->
+    <div id="ejs-tab-emails" style="display:none">
+      <div style="font-size:0.78rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.5rem">👨‍⚕️ Doctor Gmail Addresses</div>
+      <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:0.9rem;line-height:1.5">Enter the Gmail address for each doctor. When a patient books, the assigned doctor will receive a notification at this address.</p>
+      <div id="ejs-doc-email-list" style="max-height:350px;overflow-y:auto;padding-right:4px"></div>
+      <div class="modal-actions" style="margin-top:1rem">
+        <button class="btn-back" onclick="openCredsTab()">← Back</button>
+        <button class="btn-primary" onclick="saveDoctorEmailsFromModal()" style="flex:1;border-radius:12px;padding:0.75rem;font-size:0.9rem">💾 Save Doctor Emails</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DOCTOR PORTAL MODAL -->
+<div class="dp-overlay" id="dp-overlay">
+  <div class="dp-modal" id="dp-modal">
+
+    <!-- LOGIN VIEW -->
+    <div id="dp-login-view">
+      <div class="dp-header">
+        <div>
+          <h3>🩺 Doctor Portal</h3>
+          <p>Login to view your booked appointments and manage cancellations.</p>
+        </div>
+        <button class="dp-close" onclick="closeDoctorPortal()">✕</button>
+      </div>
+      <div class="dp-login">
+        <div class="form-group">
+          <label>Select Your Name *</label>
+          <select id="dp-doc-select" class="m-select" style="margin-bottom:0">
+            <option value="">-- Select Doctor --</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Portal PIN *</label>
+          <input type="password" id="dp-pin" class="m-select" style="margin-bottom:0" placeholder="Enter PIN  (default: 1234)" maxlength="6">
+        </div>
+        <button class="submit-btn" style="margin-top:0.4rem" onclick="doctorLogin()">🔐 Login to Portal</button>
+      </div>
+    </div>
+
+    <!-- DASHBOARD VIEW -->
+    <div id="dp-dashboard-view" style="display:none">
+      <div class="dp-header">
+        <div>
+          <div class="dp-doc-name" id="dp-logged-name"></div>
+          <h3 style="font-size:1.1rem;margin-bottom:0">Your Appointments</h3>
+        </div>
+        <button class="dp-close" onclick="closeDoctorPortal()">✕</button>
+      </div>
+      <div class="email-note">📧 When you cancel an appointment, an automatic email notification will be sent to the patient's registered Gmail with your reason.</div>
+      <div id="dp-appt-list"></div>
+    </div>
+
+    <!-- DOCTOR CANCEL VIEW -->
+    <div id="dp-cancel-view" style="display:none">
+      <div class="dp-header">
+        <div><h3>❌ Cancel Appointment</h3></div>
+        <button class="dp-close" onclick="showDpDashboard()">← Back</button>
+      </div>
+      <p>The patient will receive an automatic email with your cancellation reason.</p>
+      <div id="dp-cancel-appt-info" style="background:var(--bg-alt);border:1px solid var(--card-border);border-radius:12px;padding:1rem;margin-bottom:1rem;font-size:0.85rem;color:var(--text-secondary);line-height:1.85"></div>
+      <div class="form-group" style="margin-bottom:0.8rem">
+        <label>Emergency / Cancellation Reason *</label>
+        <select id="dp-cx-sel" class="m-select">
+          <option value="">Select a reason</option>
+          <option>Doctor Emergency – Medical</option>
+          <option>Doctor Emergency – Personal</option>
+          <option>Hospital Emergency / OT Priority</option>
+          <option>Doctor Unwell / Sick Leave</option>
+          <option>Conference / CME / Training</option>
+          <option>Rescheduling Required</option>
+          <option>Equipment / Facility Issue</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group" style="margin-bottom:1rem">
+        <label>Additional Notes for Patient (optional)</label>
+        <textarea id="dp-cx-txt" class="m-textarea" placeholder="Explain the situation so the patient can plan accordingly…"></textarea>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-back" onclick="showDpDashboard()">Go Back</button>
+        <button class="btn-danger" onclick="doctorConfirmCancel()">📧 Cancel &amp; Notify Patient</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- DB STATUS BADGE -->
+<div class="db-status" id="db-status">⏳ Connecting DB…</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<!-- KEEP YOUR ORIGINAL HTML + CSS ABOVE -->
+
+<!-- 🔥 REPLACE ONLY YOUR EXISTING <script> WITH THIS -->
+
+<script>
+let allDoctors = [];
+let allAppointments = [];
+let cxTargetId = null;
+
+// ================= LOAD DOCTORS =================
+async function loadDoctors() {
+  try {
+    const res = await fetch("http://127.0.0.1:5000/doctors");
+    const data = await res.json();
+
+    console.log("Doctors:", data); // debug
+
+    allDoctors = data;
+
+    // 🔥 Fill Department Dropdown
+    const deptSelect = document.getElementById("f-dept");
+    deptSelect.innerHTML = "<option value=''>Select Department</option>";
+
+    // get unique departments
+    const departments = [...new Set(data.map(d => d.department))];
+
+    departments.forEach(dept => {
+      const opt = document.createElement("option");
+      opt.value = dept;
+      opt.textContent = dept;
+      deptSelect.appendChild(opt);
+    });
+
+  } catch (err) {
+    console.error("Error loading doctors:", err);
+  }
+}
+// ================= LOAD APPOINTMENTS =================
+async function loadAppointments(){
+  const res = await fetch("http://127.0.0.1:5000/appointments");
+  const data = await res.json();
+  console.log(data); 
+  allAppointments = data;
+
+  window.APPTS = data.map(a=>({
+    id:a._id,
+    name:a.name,
+    phone:a.phone,
+    email:a.email,
+    gender:a.gender,
+    age:a.age,
+    dept:a.department,
+    doc:a.doctor,
+    date:a.date,
+    slot:a.slot,
+    reason:a.reason
+  }));
+
+  if(typeof renderAppointments === "function") renderAppointments();
+}
+
+// ================= BOOK =================
+async function handleBooking(e) {
+  e.preventDefault();
+
+  const data = {
+    id: "BM-" + Date.now(),
+    name: document.getElementById("f-name").value,
+    phone: document.getElementById("f-phone").value,
+    email: document.getElementById("f-email").value,
+    gender: document.getElementById("f-gender").value,
+    age: document.getElementById("f-age").value,
+    department: document.getElementById("f-dept").value,
+    doctor: document.getElementById("f-doctor").value,
+    date: document.getElementById("f-date").value,
+    slot: document.getElementById("f-slot").value,
+    reason: document.getElementById("f-reason").value
+  };
+
+  await fetch("http://127.0.0.1:5000/appointments", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(data)
+  });
+
+  alert("Appointment booked!");
+}
+// ================= CANCEL =================
+async function confirmCancel(){
+  if(!cxTargetId) return;
+
+  await fetch(`http://127.0.0.1:5000/cancel/${cxTargetId}`,{
+    method:"DELETE"
+  });
+
+  if(typeof closeCancel === "function") closeCancel();
+
+  loadAppointments();
+
+  if(typeof showToast === "function") showToast("❌ Appointment cancelled");
+
+  cxTargetId = null;
+}
+
+function updateDocDropdown() {
+  const dept = document.getElementById("f-dept").value;
+  const doctorSelect = document.getElementById("f-doctor");
+
+  doctorSelect.innerHTML = "<option value=''>Select Doctor</option>";
+
+  const filtered = allDoctors.filter(d => d.department === dept);
+
+  filtered.forEach(doc => {
+    const opt = document.createElement("option");
+    opt.value = doc.name;
+    opt.textContent = doc.name;
+    doctorSelect.appendChild(opt);
+  });
+}
+
+// ================= DISABLE OLD STORAGE =================
+function save(){}
+function dbSave(){}
+function dbUpdate(){}
+
+// ================= INIT =================
+window.onload = () => {
+  loadDoctors();  
+};
+window.addEventListener("DOMContentLoaded",()=>{
+  loadDoctors();
+  loadAppointments();
+});
+
+// ================= HELPER =================
+function f(id){ return document.getElementById(id).value }
+</script>
+</body>
+</html>

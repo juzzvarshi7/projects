@@ -1,0 +1,19 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "role": "staff",
+      "name": "Wolg",
+      "email": "wolg@college.edu",
+      "password": "1234"
+    },
+    {
+      "id": 2,
+      "role": "principal",
+      "name": "Dr. Asha",
+      "email": "principal@college.edu",
+      "password": "admin"
+    }
+  ],
+  "appointments": []
+}

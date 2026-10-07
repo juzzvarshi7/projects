@@ -1,0 +1,174 @@
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+header {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 0;
+}
+
+header h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 24px;
+    line-height: 1;
+    float: left;
+}
+
+nav {
+    float: right;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+nav ul li {
+    display: inline;
+    margin-left: 10px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 5px 10px;
+    transition: background-color 0.3s ease;
+}
+
+nav ul li a:hover {
+    background-color: #0056b3;
+}
+
+footer {
+    background-color: #f0f0f0;
+    padding: 10px 0;
+    text-align: center;
+}
+
+/* Slider Styles */
+#slider {
+    background-color: #f0f0f0;
+    padding: 50px 0;
+}
+
+.slider-container {
+    display: flex;
+    overflow-x: hidden;
+}
+
+.slide {
+    flex: 0 0 100%;
+    padding: 0 20px;
+}
+
+.slide h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.slide p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.read-more-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.read-more-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Recent News Section */
+#recent-news {
+    background-color: #ffc107;
+    padding: 50px 0;
+}
+
+.yellow-box {
+    background-color: #ffc107;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.recent-news {
+    flex: 1;
+}
+
+.recent-news h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.recent-news p {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.yellow-box img {
+    max-width: 200px;
+    height: auto;
+}
+
+/* Services Section Styles */
+#services {
+    padding: 50px 0;
+    background-color: #f0f0f0;
+}
+
+.services-container {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+}
+
+.service-card {
+    flex: 0 0 50%;
+    padding: 20px;
+    min-width: 300px;
+    scroll-snap-align: start;
+}
+
+.services-prev-btn,
+.services-next-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    padding: 10px;
+    font-size: 18px;
+}
+
+.services-prev-btn {
+    left: 10px;
+}
+
+.services-next-btn {
+    right: 10px;
+}

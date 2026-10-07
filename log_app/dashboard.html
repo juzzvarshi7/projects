@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Your Reflections</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Emotional State</th>
+            <th>Activities</th>
+            <th>Social Interactions</th>
+            <th>Personal Reflections</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for reflection in reflections %}
+        <tr>
+            <td>{{ reflection.date }}</td>
+            <td>{{ reflection.emotional_state }}</td>
+            <td>{{ reflection.activities }}</td>
+            <td>{{ reflection.social_interactions }}</td>
+            <td>{{ reflection.personal_reflections }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
